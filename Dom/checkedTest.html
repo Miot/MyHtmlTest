@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .wrap {
+            width: 300px;
+            margin: 100px auto 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            border: 1px solid #c0c0c0;
+            width: 300px;
+        }
+
+        th,
+        td {
+            border: 1px solid #d0d0d0;
+            color: #404060;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #09c;
+            font: bold 16px "微软雅黑";
+            color: #fff;
+        }
+
+        td {
+            font: 14px "微软雅黑";
+            text-align:center;
+        }
+
+        tbody tr {
+            background-color: #f0f0f0;
+        }
+
+        tbody tr:hover {
+            cursor: pointer;
+            background-color: #fafafa;
+        }
+    </style>
+
+    <script>
+    	window.onload = function () {
+	    	var th = document.getElementById("theadInp");
+	    	var tbody = document.getElementById("tbody");
+	    	var td = tbody.getElementsByTagName("input");
+
+	    	//全选与反选
+	    	th.onclick = function(){
+	    		// if(this.checked){
+	    		// 	for(var i=0;i<td.length;i++){
+	    		// 		td[i].checked=true;
+	    		// 	}
+	    		// }else{
+	    		// 	for(var i=0;i<td.length;i++){
+	    		// 		td[i].checked=false;
+	    		// 	}
+	    		// }
+	    		for(var i=0;i<td.length;i++){
+	    			td[i].checked=this.checked;
+	    		}
+	    	}
+
+	    	//选项导致的全选与反选
+	    	for(var i=0;i<td.length;i++){
+	    		td[i].onclick = function(){
+		    		var bool=true;
+		    		for(var j=0;j<td.length;j++){
+		    			if(td[j].checked === false){
+		    				bool=false;
+		    			}
+		    		}
+		    		th.checked=bool;
+				}
+
+	    	}
+				
+
+
+    }
+    </script>
+
+</head>
+<body>
+    <div class="wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" id="theadInp" />
+                    </th>
+                    <th>菜名</th>
+                    <th>饭店</th>
+                </tr>
+            </thead>
+
+
+
+            <tbody id="tbody">
+                <tr>
+                    <td>
+                        <input type="checkbox" />
+                    </td>
+                    <td>炒饭</td>
+                    <td>国际大饭店</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" />
+                    </td>
+                    <td>炒饭</td>
+                    <td>国际大饭店</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" />
+                    </td>
+                    <td>炒饭</td>
+                    <td>国际大饭店</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" />
+                    </td>
+                    <td>炒饭</td>
+                    <td>国际大饭店</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
