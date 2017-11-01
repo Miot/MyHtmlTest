@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+
+        div {
+            width: 1210px;
+            margin: 80px auto;
+            color: #000;
+            text-align: center;
+            font: 600 30px/30px "simsun";
+            background-color: #eee;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+
+<script>
+   var div = document.getElementsByTagName("div")[0];
+   var timer = setInterval(fn,1);
+
+   function fn(){
+	   var currentDate = new Date();
+	   var futureDate = new Date("2017/11/02 18:00:00");
+	   var sumDate = futureDate.getTime() - currentDate.getTime();
+	   var day = parseInt(sumDate/1000/60/60/24);
+	   var hour = parseInt(sumDate/1000/60/60%24);
+	   var minu = parseInt(sumDate/1000/60%60);
+	   var sec = parseInt(sumDate/1000%60);
+	   var millsec = parseInt(sumDate%1000);
+
+	   day = day<10?"0"+day:day;
+	   hour = hour<10?"0"+hour:hour;
+	   minu = minu<10?"0"+minu:minu;
+	   sec = sec<10?"0"+sec:sec;
+	   if(millsec<10){
+	   		millsec += "00";
+	   }else if(millsec<100){
+	   		millsec += "0";
+	   }
+	   
+	   div.innerHTML ="距离发布会还有"+day+"天"+hour+"小时"+minu+"分"+sec+"秒"+millsec+"毫秒";
+
+	   if(sumDate<0){
+	   	   div.innerHTML="发布会已结束";
+	   	   clearInterval(timer);
+	   	   return;
+	   }
+	}
+</script>
+</body>
+
+</html>
