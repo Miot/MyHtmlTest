@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var test = '012345678910';
+		//substr第二参数是个数 slice包左(start)不包右(end)
+		//substring两个特殊：1. 往回截取(左右都不包)   2.负值=0
+		console.log(test.slice(4,7));        //456     
+	    console.log(test.substring(4,7));   //456
+	    console.log(test.substr(4,7));      //456789
+	    console.log("------------------------------------");
+	    console.log(test.slice(7,4));        //空字符串   
+	    console.log(test.substring(7,4));   //456
+	    console.log(test.substr(7,4));     //789
+	    console.log("------------------------------------");
+	    console.log(test.slice(-3));         //789    
+	    console.log(test.substr(-3));       //789
+	    console.log(test.substring(-3));   //0123456789
+	    console.log("------------------------------------");
+	    console.log(test.slice(3,-4));         //345  
+	    console.log(test.substring(3,-4));    //012
+	    console.log(test.substr(3,-4));      //空字符串
+	   
+
+	</script>
+</body>
+</html>
