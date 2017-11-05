@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body,html {
+            height: 100%;
+        }
+        ul {
+            list-style: none;
+            height: 100%;
+        }
+        ul li {
+            height: 100%;
+        }
+        ol {
+            list-style: none;
+            position: fixed;
+            top: 80px;
+            left: 50px;
+        }
+        ol li {
+            width: 50px;
+            height: 50px;
+            border: 1px solid #000;
+            text-align: center;
+            line-height: 50px;
+            margin-top: -1px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li>A</li>
+        <li>B</li>
+        <li>C</li>
+        <li>D</li>
+        <li>E</li>
+    </ul>
+    <ol>
+        <li>A</li>
+        <li>B</li>
+        <li>C</li>
+        <li>D</li>
+        <li>E</li>
+    </ol>
+
+    <script src="animate.js"></script>
+    <script>
+        //需求：点击ol中的li，屏幕滑动到对应的ul中的li的范围。
+        //思路：还是利用window.scrollTo();利用缓动动画原理实现屏幕滑动。
+        //步骤：
+        //0.获取元素
+        //1.指定ul和ol中的li的背景色，对应的li背景色相同
+        //2.老三步。(获取元素并绑定事件)
+        //3.利用缓动动画原理实现屏幕滑动
+        //4.用scroll事件模拟盒子距离最顶端的距离。
+        var ul = $("ul")[0];
+        var ol = $("ol")[0];
+        var ulliArr = ul.children;
+        var olliArr = ol.children;
+
+        var color = ["pink","blue","yellow","red","green"];
+        var target=0;var leader=0;var timer=null;
+        for(var i = 0;i<color.length;i++){
+        	ulliArr[i].style.backgroundColor = color[i];
+        	olliArr[i].style.backgroundColor = color[i];
+        	olliArr[i].index = i;
+        	olliArr[i].onclick = function(){
+        		 //***获取目标位置
+                    //获取索引值。
+                target = ulliArr[this.index].offsetTop;
+                //要用定时器，先清除定时器
+                clearInterval(timer);
+        		timer  = setInterval(function(){
+        			var speed = (target - leader)/10;
+	        		speed = speed>0?Math.ceil(speed):Math.floor(speed);
+	        		leader = leader +speed;
+	        		window.scrollTo(0,leader);
+	        		if(Math.abs(target-leader)<=Math.abs(speed)){
+	        			window.scrollTo(0,target);
+	        			clearInterval(timer);
+	        		}
+        		},25);
+
+        	}
+
+
+        }
+        window.scroll = function(){
+        	leader = scroll.top();
+        }
+    </script>
+
+
+</body>
+</html>
