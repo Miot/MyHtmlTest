@@ -1,3 +1,12 @@
+//显示和隐藏
+function show(ele){
+    ele.style.display = "block";
+}
+function hide(ele){
+    ele.style.display = "none";
+}
+
+
 //缓动动画封装
 function animate(ele,target) {
     clearInterval(ele.timer);
@@ -12,9 +21,7 @@ function animate(ele,target) {
         }
     },25);
 }
-/**
- * Created by andy on 2015/12/8.
- */
+
 function scroll() {  // 开始封装自己的scrollTop
     if(window.pageYOffset != null) {  // ie9+ 高版本浏览器
         // 因为 window.pageYOffset 默认的是  0  所以这里需要判断
@@ -34,9 +41,7 @@ function scroll() {  // 开始封装自己的scrollTop
         top: document.body.scrollTop
     }
 }
-/**
- * Created by Lenovo on 2016/9/2.
- */
+
 /**
  * 通过传递不同的参数获取不同的元素
  * @param str
