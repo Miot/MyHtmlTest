@@ -1,3 +1,3 @@
 # MyHtmlTest
-Some test from learning HTML.
+Some tests from learning HTML.
 @author:Mio
