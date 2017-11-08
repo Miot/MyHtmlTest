@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        div{
+            width: 300px;
+            height: 300px;
+            display: none;
+            background-color: #ccc;
+            margin-top:10px;
+        }
+    </style>
+
+    <script src="jquery-1.11.1.min.js"></script>
+    <script>
+        $(function () {
+            //点击按钮后产生动画
+            $("button:eq(0)").click(function () {
+//                //显示动画用法1:   show();   不加参数
+//                $("div").show();  //通过这个方法实现的：display: block;
+
+//                //显示动画用法2:   show(2000);   毫秒值
+//                $("div").show(2000);  //通过这个方法实现的：display: block;
+//                //通过控制  宽高透明度和display
+
+                //显示动画用法3:   show(字符串);   slow慢：600ms   normal正常:400ms   fast快：200ms
+               $("div").show("slow");
+//                $("div").show("fast");
+//                $("div").show("normal");
+
+                //显示动画用法1:   show(毫秒值，回调函数[显示完毕执行什么]);
+//                $("div").show(5000,function () {
+//                    alert("动画执行完毕！");
+//                });
+            })
+
+            //隐藏动画
+            $("button:eq(1)").click(function () {
+//                //显示动画用法1:   hide();   不加参数
+//                $("div").hide();  //通过这个方法实现的：display: none;
+
+//                //显示动画用法2:   hide(2000);   毫秒值
+//                $("div").hide(2000);  //通过这个方法实现的：display: none;
+//                //通过控制  宽高透明度和display
+
+                //显示动画用法3:   hide(字符串);   slow慢：600ms   normal正常:400ms   fast快：200ms
+//                $("div").hide("slow");
+                $("div").hide("fast");
+//                $("div").hide("normal");
+
+                //显示动画用法4:   hide(毫秒值，回调函数[显示完毕执行什么]);
+//                $("div").hide(2000,function () {
+//                    alert("动画执行完毕！");
+//                });
+            })
+
+            $("button:eq(2)").click(function () {
+                //显示隐藏切换
+                //同样有四种用法
+                $("div").toggle(1000);
+            })
+
+
+            //点击按钮后产生动画
+            $("button:eq(3)").click(function () {
+//                //滑入动画用法1:   slideDown();   不加参数
+                $("div").slideDown();
+
+//                //滑入动画用法2:   slideDown(2000);   毫秒值
+//                $("div").slideDown(2000);
+//                //通过控制  高和display
+
+                //滑入动画用法3:   slideDown(字符串);   slow慢：600ms   normal正常:400ms   fast快：200ms
+//                $("div").slideDown("slow");
+//                $("div").slideDown("fast");
+//                $("div").slideDown("normal");
+
+                //滑入动画用法4:   slideDown(毫秒值，回调函数[显示完毕执行什么]);
+//                $("div").slideDown(5000,function () {
+//                    alert("动画执行完毕！");
+//                });
+            })
+
+            //滑出动画
+            $("button:eq(4)").click(function () {
+//                //滑出动画用法1:   slideUp();   不加参数
+//                $("div").slideUp();
+
+//                //滑出动画用法2:   slideUp(2000);   毫秒值
+//                $("div").slideUp(2000);  //通过这个方法实现的：display: none;
+//                //通过控制  高和display
+
+                //滑出动画用法3:   slideUp(字符串);   slow慢：600ms   normal正常:400ms   fast快：200ms
+//                $("div").slideUp("slow");
+//                $("div").slideUp("fast");
+                $("div").slideUp("normal");
+
+                //滑出动画用法1:   slideUp(毫秒值，回调函数[显示完毕执行什么]);
+                // $("div").slideUp(2000,function () {
+                //     alert("动画执行完毕！");
+                // });
+            })
+
+            $("button:eq(5)").click(function () {
+                //滑入滑出切换
+                //同样有四种用法
+                $("div").slideToggle(1000);
+            })
+
+
+
+            $("button:eq(6)").click(function () {
+//                //淡入动画用法1:   fadeIn();   不加参数
+                $("div").fadeIn();
+
+//                //淡入动画用法2:   fadeIn(2000);   毫秒值
+//                $("div").fadeIn(2000);
+//                //通过控制  透明度和display
+
+                //淡入动画用法3:   fadeIn(字符串);   slow慢：600ms   normal正常:400ms   fast快：200ms
+//                $("div").fadeIn("slow");
+//                $("div").fadeIn("fast");
+//                $("div").fadeIn("normal");
+
+                //淡入动画用法4:   fadeIn(毫秒值，回调函数[显示完毕执行什么]);
+//                $("div").fadeIn(5000,function () {
+//                    alert("动画执行完毕！");
+//                });
+            })
+
+            //滑出动画
+            $("button:eq(7)").click(function () {
+//                //滑出动画用法1:   fadeOut();   不加参数
+//                $("div").fadeOut();
+
+//                //滑出动画用法2:   fadeOut(2000);   毫秒值
+//                $("div").fadeOut(2000);  //通过这个方法实现的：display: none;
+//                //通过控制  透明度和display
+
+                //滑出动画用法3:   fadeOut(字符串);   slow慢：600ms   normal正常:400ms   fast快：200ms
+//                $("div").fadeOut("slow");
+//                $("div").fadeOut("fast");
+                $("div").fadeOut("normal");
+
+                //滑出动画用法1:   fadeOut(毫秒值，回调函数[显示完毕执行什么]);
+//                $("div").fadeOut(2000,function () {
+//                    alert("动画执行完毕！");
+//                });
+            })
+
+            $("button:eq(8)").click(function () {
+                //滑入滑出切换
+                //同样有四种用法
+                $("div").fadeToggle(1000);
+            })
+
+            $("button:eq(9)").click(function () {
+                //改透明度
+                //同样有四种用法
+                $("div").fadeTo(1000,0.5);
+            })
+
+
+
+
+        })
+    </script>
+</head>
+<body>
+<button>显示</button>
+<button>隐藏</button>
+<button>切换显示/隐藏</button>
+<button>滑入</button>
+<button>滑出</button>
+<button>切换滑入/滑出</button>
+<button>淡入</button>
+<button>淡出</button>
+<button>切换淡入/淡出</button>
+<button>改透明度为0.5</button>
+<div></div>
+
+</body>
+</html>
