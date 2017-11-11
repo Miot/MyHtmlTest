@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{margin:0; padding:0;}
+		header{
+			width: 1000px;
+			height: 100px;
+			margin:0 auto;
+			background-color: #ccc;
+			text-align: center;
+			line-height: 100px;
+		}
+		nav{
+			width: 1000px;
+			height: 30px;
+			margin:0 auto;
+			background-color: #eee;
+			text-align: center;
+			line-height: 30px;
+		}
+		section{
+			width: 1000px;
+			height: 450px;
+			margin:0 auto;
+		}
+		section aside{
+			float: left;
+			width: 400px;
+			height: 450px;
+			background-color: red;
+			text-align: center;
+			line-height: 450px;
+		}
+		section article{
+			float: right;
+			width: 600px;
+			height: 450px;
+			background-color: yellow;
+			text-align: center;
+			line-height: 450px;
+		}
+		footer{
+			width: 1000px;
+			height: 150px;
+			margin:0 auto;
+			background-color: #666;
+			text-align: center;
+			line-height: 150px;
+		}
+	</style>
+
+	<!-- 引入html5shiv.min.js支持ie678 -->
+	<!-- 条件注释 只有ie能够识别 -->
+	<!-- [if lte ie 8] -->
+		<script src="html5shiv.min.js"></script>
+	<!-- [endif] -->
+</head>
+
+<body>
+	<header>header</header>
+	<nav>nav</nav>
+	<section>
+		<aside>侧边栏</aside>
+		<article>文章</article>
+	</section>
+	<footer>底部</footer>
+</body>
+</html>
