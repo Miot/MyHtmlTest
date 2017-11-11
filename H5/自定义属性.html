@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<!-- 自定义属性必须data开头 -->
+	<div class="box" data-name="boxxxxxx" data-content="" data-my-name="BOX"></div>
+
+	<script>
+		var box = document.querySelector(".box");
+		//获取自定义属性
+		console.log(box.dataset["name"]);
+		////驼峰命名法获取
+		console.log(box.dataset["myName"]);
+		//设置自定义属性
+		box.dataset["content"]= "aaa";
+	</script>
+</body>
+</html>

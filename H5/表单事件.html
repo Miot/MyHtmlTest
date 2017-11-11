@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+		<style>
+		form{
+			width: 100%;
+			max-width: 640px;
+			min-width: 320px;
+			margin:0 auto;
+			font-family: "Microsoft Yahei";
+			font-size: 20px;
+		}
+		input{
+			display: block;
+			width: 100%;
+			height: 30px;
+			margin:10px 0;
+		}
+	</style>
+</head>
+<body>
+	<form>
+	<fieldset>
+		<legend>表单事件</legend>
+		<label for="">
+			邮箱：<input type="email" id="userEmail"/>
+		</label>
+		<label for="">
+			用户名：<input type="text" id="userName"/>
+		</label>
+		<label for="">
+			密码：<input type="text" id="pwd" value=""/>
+		</label>
+		<input type="submit" value="提交"/>
+	</fieldset>
+	</form>
+	<script>
+		// 表单事件：oninput 当用户输入的时候
+		// oninvalid 当验证不通过的时候触发
+		var userName = document.getElementById("userName");
+		var pwd = document.getElementById("pwd");
+		var userEmail = document.getElementById("userEmail");
+		var num = 0;
+		userName.oninput=function(){
+			num++;
+			pwd.value = num;
+		}
+		// 用于设置验证不通过时的提示文字
+		userEmail.oninvalid=function(){
+			this.setCustomValidity("输入错误！！")
+		}
+
+
+	</script>
+</body>
+</html>

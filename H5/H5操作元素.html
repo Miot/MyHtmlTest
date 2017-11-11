@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.box{
+			width: 300px;
+			height: 100px;
+			margin:10px auto;
+			border: 1px solid #000;
+		}
+		.active{
+			border-radius:50%;
+			background-color: #ccc;
+		}
+	</style>
+</head>
+<body>
+	<div class="box box1" id="box1"></div>
+	<div class="box box2"></div>
+	<div class="box box3"></div>
+	<div class="box box4"></div>
+	<button>切换类名</button>
+	<script>
+		// 原生js获取元素
+		// var box1 = document.getElementById("box1");
+		// H5
+			//只能获取单个（or首个）标签
+			var box1 = document.querySelector("div");
+			box1.style.background="red";
+
+			//获取多个标签
+			var boxs = document.querySelectorAll(".box");
+			boxs[1].style.background="yellow";
+
+			//添加类名
+			var box3 = document.querySelector(".box3");
+			box3.classList.add("active");
+
+			//删除类名
+			box3.classList.remove("active");
+
+			//判断是否包含某一类名
+			var f = box3.classList.contains("abc");
+			console.log(f); //false
+
+			//切换类名
+			document.querySelector("button").onclick = function(){
+				document.querySelector(".box4").classList.toggle("active");
+			}
+
+
+
+	</script>
+</body>
+</html>
