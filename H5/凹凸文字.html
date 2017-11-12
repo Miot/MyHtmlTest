@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		body{
+			background-color: #ccc;
+		}
+		p{
+			text-align: center;
+			font-size: 60px;
+			font-family: "Microsoft Yahei";
+			font-weight: 600;
+			margin-top: 50px;
+			color: #ccc;
+		}
+		/*多个阴影用逗号隔开*/
+		p.tu{
+			text-shadow: -1px -1px 0 #fff,1px 1px 0 #000;
+		}
+		p.ao{
+			text-shadow: 1px 1px 0 #fff,-1px -1px 0 #000;
+		}
+	</style>
+</head>
+<body>
+	<p class="tu">ABCDE</p>
+	<p class="ao">ACBDE</p>
+</body>
+</html>
