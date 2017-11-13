@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		div{
+			width: 1000px;
+			height: 100px;
+			margin:30px auto;
+			border: 1px solid #000;
+		}
+		div:nth-child(1){
+			background-image: linear-gradient(to right,yellow,gray);
+		}
+		div:nth-child(2){
+			background-image: linear-gradient(yellow,gray);
+		}
+		div:nth-child(3){
+			width: 200px;
+			height: 200px;
+			background-image: linear-gradient(45deg,yellow,gray);
+		}
+		div:nth-child(4){
+			background-image: linear-gradient(to right,yellow 0%,red 40%,gray 100%);
+		}
+		div:nth-child(5){
+			background-image: linear-gradient(45deg,
+				yellow 0%,yellow 25%,
+				blue 25%,blue 50%,
+				green 50%,green 75%,
+				gray 75%,gray 100%);
+		}
+		div:nth-child(6){
+			background-image: linear-gradient(135deg,
+				#666 0%,#666 25%,
+				#fff 25%,#fff 50%,
+				#666 50%,#666 75%,
+				#fff 75%,#fff 100%
+				);
+			background-size: 100px 100%;
+			animation:move 1s infinite linear;
+		}
+		@keyframes move{
+			100%{
+				background-position: 100px 0px;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+</body>
+</html>
