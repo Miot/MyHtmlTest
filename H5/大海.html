@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		*{margin: 0;padding: 0;}
+		html,body{
+			height: 100%;
+		}
+		body{
+			background-color: lightseagreen;
+			overflow: hidden;
+		}
+		.sea{
+			position: absolute;
+			bottom:0;
+			left: 0;
+			width: 100%;
+			height: 235px;
+		}
+		.sea>div{
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			width: 100%;
+			height: 100%;
+			background: url(images/1.png) no-repeat left bottom;
+			opacity: 0.4;
+		}
+		.sea .sea1{
+			animation: upDown 1s infinite alternate;
+		}
+		.sea .sea2{
+			animation: upDown 1s infinite alternate 0.5s;
+		}
+		.sea .sea2{
+			background-image: url(images/2.png) ;
+		}
+		@keyframes upDown{
+			0%{
+				bottom:0px;
+			}
+			100%{
+				bottom:-30px;
+			}
+		}
+
+
+		.sun{
+			width: 80px;
+			height: 80px;
+			background-color: #fff;
+			border-radius:50%;
+			position: absolute;
+			left: 100px;
+			top: 100px;
+		}
+		.sun1,.sun2{
+			width: 80px;
+			height: 80px;
+			background-color: #fff;
+			border-radius:50%;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+		.sun1{
+			animation:bigger 1.5s infinite ;
+		}
+		.sun2{
+			animation:bigger 1.9s infinite 1s;
+		}
+		@keyframes bigger{
+			0%{
+				transform: scale(1);
+				opacity: 1;
+			}
+			100%{
+				transform: scale(1.5);
+				opacity: 0.1;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="sun">
+		<div class="sun1"></div>
+		<div class="sun2"></div>
+	</div>
+
+	<div class="sea">
+		<div class="sea1"></div>
+		<div class="sea2"></div>
+	</div>
+</body>
+</html>

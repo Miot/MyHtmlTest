@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		.box{
+			width: 80px;
+			height: 80px;
+			background-color: gray;
+			margin:100px;
+
+			/*animation:move 2s 3 alternate linear;*/
+			animation-name:move;
+			animation-duration:2s;
+			/*animation-iteration-count:infinite;*/
+			animation-iteration-count:1;
+			/*动画方向：alternate normal*/
+			animation-direction: alternate;
+			/*animation-delay: 1s;*/
+			/*动画结束后的保持状态forwards backwards*/
+			animation-fill-mode: forwards;
+			/*运动曲线*/
+			/*animation-timing-function: linear;*/
+
+
+			animation-timing-function: steps(3);
+
+		}
+		@keyframes move{
+			0%{}
+			100%{
+				transform:translateX(500px) rotate(360deg);
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		
+	</div>
+</body>
+</html>
