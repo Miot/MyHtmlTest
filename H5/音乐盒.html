@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		body{
+			background-color: skyblue;
+		}
+		.music{
+			width: 300px;
+			height: 300px;
+			margin:50px auto;
+			position: relative;
+		}
+		.music::before,.music::after{
+			content: "";
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			border-radius: 50%;
+			background-color: red;
+			background: url(images/musicb.jpg) no-repeat;
+			border: 1px solid #ccc;
+		}
+		.music::after{
+			transition: transform 1s;
+			/*变换中心*/
+			transform-origin:bottom;
+ 			background-image: url(images/musict.jpg);
+		}
+		.music::before{
+			transition:transform 2s 0.3s;
+		}
+		.music:hover::after{
+			transform: rotateX(180deg);
+		}
+		.music:hover::before{
+			transform: rotateZ(360deg);
+		}
+	</style>
+</head>
+<body>
+	<div class="music"></div>
+</body>
+</html>
