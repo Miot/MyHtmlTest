@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		*{margin: 0;padding: 0;list-style: none;}
+		section{
+			width: 1000px;
+			margin:0 auto;
+		}
+		body{
+			background-color: #eee;
+			font-family: "Microsoft Yahei"
+			font-size:22px;
+		}
+		h3{
+			font-weight: normal;
+		}
+		ul{
+			background-color: #fff;
+			border: 1px solid #ccc;
+			
+		}
+		ul li{
+			width: 200px;
+			height: 200px;
+			background-color: #ccc;
+			margin:10px ;
+		}
+		section:nth-child(1) ul{
+			overflow: hidden;
+		}
+		section:nth-child(1) ul li{
+			float: left;
+		}
+		section:nth-child(2) ul{
+			display: flex;
+		}
+		section:nth-child(3) ul{
+			display: flex;
+			/*row row-reverse column column-reverse*/
+			flex-direction: row-reverse;
+		}
+		section:nth-child(4) ul{
+			display: flex;
+			/*flex-start flex-end center space-round space-between*/
+			justify-content: space-between;
+		}
+		section:nth-child(5) ul{
+			height: 400px;
+			display: flex;
+			/*flex-start flex-end center baseline(同flex-start) stretch*/
+			align-items:stretch;
+		}
+		section:nth-child(5) ul li{
+			height: auto;
+		}
+
+		section:nth-child(6) ul{
+			display: flex;
+		}
+		section:nth-child(6) ul li:nth-child(1){
+			flex:1;
+		}
+		section:nth-child(6) ul li:nth-child(2){
+			flex:2;
+		}
+		section:nth-child(6) ul li:nth-child(3){
+			flex:1;
+		}
+	</style>
+</head>
+<body>
+	<section>
+		<h3>传统布局</h3>
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+		</ul>
+	</section>
+
+	<section>
+		<h3>伸缩布局 display: flex</h3>
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+		</ul>
+	</section>
+
+	<section>
+		<h3>主轴方向 flex-direction </h3>
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+		</ul>
+	</section>
+
+	<section>
+		<h3>主轴对齐方式 justify-content </h3>
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+		</ul>
+	</section>
+
+	<section>
+		<h3>侧轴对齐方式 align-items </h3>
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+		</ul>
+	</section>
+
+	<section>
+		<h3>flex伸缩比例</h3>
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+		</ul>
+	</section>
+</body>
+</html>
