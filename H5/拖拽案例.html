@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		.one{
+			width: 400px;
+			height: 200px;
+			border: 1px solid #000;
+		}
+		.one>div,.two>div{
+			width: 98px;
+			height: 98px;
+			border: 1px solid #000;
+			border-radius: 50%;
+			background-color: #ccc;
+			float: left;
+			text-align: center;
+			line-height: 98px;
+		}
+		.two{
+			width: 400px;
+			height: 200px;
+			border: 1px solid #000;
+			position: absolute;
+			left: 450px;
+			top: 230px;
+		}
+	</style>
+</head>
+<body>
+	<div class="one">
+		<div draggable="true">1</div>
+		<div draggable="true">2</div>
+		<div draggable="true">3</div>
+		<div draggable="true">4</div>
+		<div draggable="true">5</div>
+		<div draggable="true">6</div>
+		<div draggable="true">7</div>
+		<div draggable="true">8</div>
+	</div>
+	<div class="two"></div>
+	<script>
+		var boxs =document.querySelectorAll(".one div");
+		var one = document.querySelector(".one");
+		var two = document.querySelector(".two");
+		// 临时盒子(用于存放当前被拖拽的元素)
+		var temp =null;
+		// 给八个小盒子分别绑定拖拽事件
+		for(var i=0;i<boxs.length;i++){
+			boxs[i].ondragstart=function(){
+				// 保存当前被拖拽的元素
+				temp = this;
+			}
+			boxs[i].ondragend=function(){
+				temp = null;
+			}
+		}
+		two.ondragover=function(e){
+			e.preventDefault();
+		}
+		two.ondrop=function(){
+			this.appendChild(temp);
+		}
+	</script>
+</body>
+</html>

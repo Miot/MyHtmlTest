@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<style>
+		*{margin: 0;padding:0;list-style:none;text-decoration: none;}
+		figcaption{
+			text-align: center;
+			line-height: 150px;
+			font-family: "Microsoft Yahei";
+			font-size: 24px;
+		}
+		.player{
+			height: 432px;
+			width: 768px;
+			margin:10px auto;
+			background: url(images/loading.gif) center no-repeat #000;
+			background-size: auto 100%;
+			position: relative;
+			border-radius: 20px;
+
+		}
+		.player video{
+			height: 100%;
+			display: block;
+			margin:0 auto;
+			border-radius: 20px;
+		}
+		/*控制条*/
+		.controls{
+			width: 748px;
+			height: 40px;
+			background-color: rgba(255,255,255,0.3);
+			position: absolute;
+			bottom: 5px;
+			left:10px;
+			border-radius: 6px;
+			opacity: 0;
+		}
+		.player:hover .controls{
+			transition: opacity 1s;
+			opacity: 1;
+		}
+		.switch{
+			position: absolute;
+			width: 20px;
+			height: 20px;
+			left: 10px;
+			top: 10px;
+
+			text-align: center;
+			line-height: 20px;
+			color:#fff;
+		}
+		.progress{
+			width: 482px;
+			height: 10px;
+			position: absolute;
+			background-color: rgba(255,255,255,0.4);
+			left:40px;
+			top: 15px;
+			border-radius: 4px;
+			overflow: hidden;
+		}
+
+		.curr-progress{
+			width: 50%;
+			height: 10px;
+			background-color: #fff;
+		}
+		.time{
+			width: 20px;
+			height: 20px;
+			text-align: center;
+			line-height: 20px;
+			color: #fff;
+			position: absolute;
+			left: 550px;
+			top:10px;
+			font-size: 13px;
+		}
+		.extend{
+			position: absolute;
+			width: 20px;
+			height: 20px;
+			right: 40px;
+			top: 10px;
+
+			text-align: center;
+			line-height: 20px;
+			color:#fff;
+		}
+	</style>
+</head>
+<body>
+	<figure>
+		<figcaption>视频</figcaption>
+		<div class="player">
+			<video src="video/fun.mp4"></video>
+			<!-- 控制条 -->
+			<div class="controls">
+			<!-- 播放暂停 -->
+			<a href="#" class="switch fa fa-play"></a>
+			<!-- 进度条 -->
+			<div class="progress">
+				<div class="curr-progress"></div>
+			</div>
+			<!-- 时间线 -->
+			<div class="time">
+				<span class="curr-time">00:00:00</span>/<span class="total-time">00:00:00</span>
+			</div>
+			<!-- 全屏按钮 -->
+			<a href="#" class="extend fa fa-compress"></a>
+			</div>
+		</div>
+	</figure>
+	<script>
+		var video = document.querySelector("video");
+		var playBtn=document.querySelector(".switch");
+		var currProgress=document.querySelector(".curr-progress");
+		var currTime=document.querySelector(".curr-time");
+		var totalTime = document.querySelector(".total-time");
+		var extend=document.querySelector(".extend");
+		var tTime=0;
+		// 点击播放按钮实现播放暂停
+		video.onclick = function(){
+			if(video.paused){
+				video.play();
+				playBtn.classList.remove("fa-play");
+				playBtn.classList.add("fa-pause");
+			}else{
+				video.pause();
+				playBtn.classList.remove("fa-pause");
+				playBtn.classList.add("fa-play");
+			}
+		}
+		playBtn.onclick = function(){
+			if(video.paused){
+				video.play();
+				this.classList.remove("fa-play");
+				this.classList.add("fa-pause");
+			}else{
+				video.pause();
+				this.classList.remove("fa-pause");
+				this.classList.add("fa-play");
+			}
+		}
+
+		// 当视频加载完成时oncanplay
+		video.oncanplay=function(){
+			tTime = video.duration;
+			// 将秒数转换成00:00:00
+			var h=Math.floor(tTime/3600);
+			var m=Math.floor(tTime%3600/60);
+			var s=Math.floor(tTime%60);
+			h=h>=10?h:"0"+h;
+			m=m>=10?m:"0"+m;
+			s=s>=10?s:"0"+s;
+			totalTime.innerHTML=h+":"+m+":"+s;
+		}
+		// 当视频播放时间更新时（代表视频在播放）
+		video.ontimeupdate=function(){
+			// 获取当前播放的时间
+			var cTime=video.currentTime;
+			var h=Math.floor(cTime/3600);
+			var m=Math.floor(cTime%3600/60);
+			var s=Math.floor(cTime%60);
+			h=h>=10?h:"0"+h;
+			m=m>=10?m:"0"+m;
+			s=s>=10?s:"0"+s;
+			currTime.innerHTML=h+":"+m+":"+s;
+			// 改变进度条百分比
+			var value =cTime/tTime;
+			currProgress.style.width=value*100+"%";
+		}
+
+		// 全屏
+		extend.onclick=function(){
+			video.webkitRequestFullScreen();
+		}
+
+	</script>
+</body>
+</html>
