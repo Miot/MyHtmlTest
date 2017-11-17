@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+</head>
+<body>
+	<script>
+		if(navigator.geolocation){
+			// 获取用户当前地理位置信息
+			navigator.geolocation.getCurrentPosition(successCallback,errorCallback);
+		}else{
+			console.log("你的浏览器不支持定位");
+		}
+		function successCallback(position){
+			console.log("获取定位成功");
+			// 获取用户当前的经度
+			var wd=position.coords.latitude;
+			// 获取用户当前的经度
+			var jd=position.coords.longitude;
+			console.log(wd+"---------"+jd);
+		}
+		function errorCallback(error){
+			console.log("error");
+			console.log("获取定位失败");
+		}
+	</script>
+</body>
+</html>
