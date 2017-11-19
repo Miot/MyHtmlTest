@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		
+	</style>
+</head>
+<body>
+	<!-- 在上传文件中必须有enctype="multipart/from" -->
+	<form action="file.php" method="post" enctype="multipart/form-data">
+		<input type="file" name="upFile">
+		<input type="submit" value="提交">
+	</form>
+	<form action="bigFile.php" method="post" enctype="multipart/form-data">
+		<input type="file" name="upBigFile">
+		<input type="submit" value="大文件上传">
+	</form>
+</body>
+</html>

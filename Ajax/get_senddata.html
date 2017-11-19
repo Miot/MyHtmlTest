@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<h3>使用get发送数据到服务器</h3>
+	<input type="text">
+	<input type="button"  value="发送get_ajax请求" id='btnAjax'>
+	<script>
+	document.querySelector("#btnAjax").onclick = function(){
+		// 发送Ajax请求五步
+		var ajaxObj = new XMLHttpRequest();
+		ajaxObj.open('get','get_senddata.php?userName='+document.querySelector('input').value);
+		ajaxObj.send();
+		ajaxObj.onreadystatechange = function(){
+			if(ajaxObj.readyState==4 && ajaxObj.status==200){
+				document.querySelector("h3").innerHTML = ajaxObj.responseText;
+			}
+		}
+	}
+	</script>
+</body>
+</html>
+
+
+
