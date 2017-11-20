@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		
+	</style>
+</head>
+<body>
+	<input type="button" value="获取XML数据" id="getXML">
+
+<script>
+	document.querySelector("#getXML").onclick = function(){
+		var ajax = new XMLHttpRequest();
+		ajax.open("get","get_XML.php");
+		ajax.send();
+		ajax.onreadystatechange = function(){
+			if(ajax.readyState ==4&ajax.status==200){
+				console.log(ajax.responseText);
+				// 异步对象中专门获取xml方法
+				console.log(ajax.responseXML);
+				//responseXML等同于window.document
+				console.log(ajax.responseXML.querySelector('name').innerHTML);
+			}
+		}
+	}
+</script>
+</body>
+</html>

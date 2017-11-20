@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 最顶层必须要有一个根节点 所有的内容都在写根节点中-->
+<person>
+	<name>a</name>
+	<age>1</age>
+</person>

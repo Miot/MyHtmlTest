@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		.imageBox{
+			width: 200px;
+			height: 200px;
+			border: 1px solid #000;
+			margin: 20px auto;
+		}
+		.infoBox{
+			border: 1px solid #000;
+			margin: 20px auto;
+			width: 200px;
+			height: 50px;
+			text-align: center;
+		}
+		body{
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div class="imageBox"></div>
+	<div class="infoBox"></div>
+	<input type="button" class="btn" value="a">
+	<input type="button" class="btn" value="b">
+	<input type="button" class="btn" value="c">
+
+<script>
+	var imageBox = document.querySelector(".imageBox");
+	var infoBox = document.querySelector(".infoBox");
+	var btnList = document.querySelectorAll(".btn");
+	for(var i=0;i<btnList.length;i++){
+		btnList[i].onclick=function(){
+			var ajax = new XMLHttpRequest();
+			ajax.open("post","changePic.php");
+			ajax.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			ajax.send("name="+this.value);
+			ajax.onreadystatechange = function(){
+				if(ajax.readyState==4&ajax.status==200){
+					// 根据“|”分割成数据
+					var strArr = ajax.responseText.split("|");
+					imageBox.style.background = "url("+strArr[0]+")";
+					infoBox.innerHTML = strArr[1];
+				}
+			}
+		}
+	}
+</script>
+</body>
+</html>
