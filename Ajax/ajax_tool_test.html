@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<input type="button" value="测试get" id="ajax_get"><br/>
+	<input type="button" value="测试post" id="ajax_post">
+</body>
+<script type="text/javascript" src='ajax_tool.js'></script>
+<script type="text/javascript">
+	//测试get
+	document.querySelector("#ajax_get").onclick = function(){
+		var backData =ajax_tool('ajax_tool_testGet.php','name=Mio&age=0','get',function(data){
+			console.log(data);
+		});
+		console.log(backData);		//直接顺序被执行没有被赋值 所以输出为undefined
+	}
+	//测试post
+	document.querySelector("#ajax_post").onclick = function(){
+		var backData =ajax_tool('ajax_tool_testPost.php','name=Mio&age=0','post',function(data){
+			console.log(data);
+		});
+	}
+</script>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		ul{
+			list-style: none;
+		}
+	</style>
+</head>
+<body>
+	<h1>获取json</h1>
+	<input type="button" value="获取" id="btnJson">
+<script>
+	document.querySelector("#btnJson").onclick = function(){
+		var ajax = new XMLHttpRequest();
+		ajax.open("get","get_Json.php");
+		ajax.send();
+		ajax.onreadystatechange = function () {
+			if (ajax.readyState==4&&ajax.status==200) {
+				console.log(ajax.responseText);
+				var jsObj = JSON.parse(ajax.responseText);
+				console.log(jsObj);
+				//拼接ul
+				var str = "";
+				str += "<ul>";
+				str += "<li>"+jsObj.name+"</li>";
+				str += "<li>"+jsObj.age+"</li>";
+				str += "</ul>";
+				//设置到页面上
+				document.body.innerHTML = str;
+			}
+		}
+	}
+</script>
+</body>
+</html>
