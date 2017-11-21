@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		html,body{height: 100%;margin:0;padding:0;overflow:hidden}
+		.container{
+			height: 100%;
+			width: 450px;
+			margin:0 auto;
+			border: 1px solid #000;
+			
+		}
+		.message{
+			width: 100%;
+			height: 80%;
+			background-color: #ccc;
+			overflow:scroll;
+		}
+		.inputBox{
+			width: 100%;
+			height: 20%;
+		}
+		.inputBox input{
+			height: 100%;
+			border: none;
+		}
+		.inputBox input:first-child{
+			width: 80%;
+		}
+		#btnSend{
+			width: 20%;
+		}
+		.my{
+			color: blue;
+			text-align: right;
+			font-size:23px;
+			line-height: 25px;
+		}
+		.robot{
+			color: red;
+			text-align: left;
+			font-size:23px;
+			line-height: 25px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="message">
+		</div>
+		<div class="inputBox">
+			<input type="text" id="myChat"><input type="button" value="Send" id="btnSend">
+		</div>
+	</div>
+<script type="text/javascript" src="ajax_tool.js"></script>
+<script type="text/javascript">
+	document.querySelector("#btnSend").onclick=function(){
+		//获取输入的内容
+		var inputValue = document.querySelector("#myChat").value;
+		//创建出对话框
+		var myChat = document.createElement('div');
+		myChat.innerHTML = inputValue;
+		myChat.classList.add('my');
+		//添加到界面上
+		document.querySelector(".message").appendChild(myChat);
+		//发送ajax请求
+		ajax_tool_pro({
+			url:"chat_json.php",
+			data:"message="+inputValue,
+			method:"post",
+			fn:function(data){
+				//console.log(data);
+				//创建出对话框
+				var robotBox= document.createElement('div');
+				robotBox.innerHTML = data;
+				robotBox.classList.add('robot');
+				//添加到界面上
+				document.querySelector(".message").appendChild(robotBox);
+			}
+		})
+		//在接收到范围的数据时 创建对话框
+	}
+
+
+</script>
+</body>
+</html>

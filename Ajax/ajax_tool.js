@@ -58,3 +58,34 @@ function ajax_tool(url,data,method,fn){
 		}
 	}
 }
+//封装优化
+function ajax_tool_pro(option){
+	var ajax; 
+	if(XMLHttpRequest){
+		ajax = new XMLHttpRequest();
+	}else{
+		ajax = new ActiveXObject("Microsoft.XMLHttp");
+	}
+	if(option.method=='get'){
+		if(option.data){
+			option.url+="?";
+			option.url+=option.data;
+		}else{}
+			ajax.open(option.method,option.url);
+			ajax.send();
+	}else{
+		ajax.open(option.method,option.url);
+		ajax.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		if(option.data){
+			ajax.send(option.data);
+		}else{
+			ajax.send();
+		}
+	}
+	ajax.onreadystatechange =function(){
+		if(ajax.readyState==4&ajax.status==200){
+			//return ajax.responseText;
+			option.fn(ajax.responseText);
+		}
+	}
+}
