@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	
+	<style type="text/css">
+		.item{
+			width: 640px;
+			background-color: #eee;
+			margin-top: 50px;
+			border-radius: 5px;
+			overflow: hidden;	
+		}
+		.item .cover{
+			display: block;
+		}
+		.item .cover img{
+			display: block;
+		}
+		.item .bottom{
+			height: 35px;
+			position: relative;
+		}
+		.item .bottom a{
+			text-decoration: none;
+			line-height: 35px;
+			font-family: '微软雅黑';
+			margin-left: 20px;
+			color: gray;
+		}
+		.item .bottom .rightBox{
+			position: absolute;
+			top: 0px;
+			right: 0px;
+			height: 100%;
+		}
+		.item .bottom .rightBox span{
+			line-height: 35px;
+			margin: 0 20px;
+			font-size: 15px;
+			color: gray;
+		}
+		.item .bottom .rightBox span::before{
+			margin-right: 10px;
+			color: #dd5a64;
+		}
+		.getMore{
+			width: 100px;
+			height: 100px;
+			border: none;
+			background-color: #ccc;
+			position: fixed;
+			left: 84%;
+			top:6%;
+			margin-top: -50px;
+			border-radius: 8%;
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+</head>
+<body>
+<input type="button"  value="加载更多" class='getMore'>
+	<div class="container">
+		<div class="item">
+			<a href="#" class='cover'><img src="images/vol.840.jpg" alt=""></a>
+			<div class="bottom">
+				<a href="#">vol.840 停下来看看世界的风景</a>
+				<div class='rightBox'>
+					<span class='icon-heart'>18554</span>
+					<span class='icon-comment'>292</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+<script src="./js/template-web.js"></script>
+<script type="text/javascript" src="./js/jquery-1.12.4.min.js"></script>
+<!-- 定义模板 -->
+<script type="text/html" id="template">
+	<div class="item">
+			{{each}}
+			<a href="#" class='cover'><img src="{{$value.path}}" alt=""></a>
+			<div class="bottom">
+				<a href="#">{{$value.name}}</a>
+				<div class='rightBox'>
+					<span class='icon-heart'>{{$value.star}}</span>
+					<span class='icon-comment'>{{$value.message}}</span>
+				</div>
+			</div>
+			{{/each}}
+		</div>
+</script>
+<!-- 书写JS -->
+<script>
+	$(function(){
+		$('.getMore').click(function(){
+			$.ajax({
+				url:'luowang.php',
+				type:'get',
+				success:function(data){
+					// console.log(data);
+					// 转化为 js对象 数组
+					var jsArr = JSON.parse(data);
+					//console.log(jsArr);
+					// 调用模板引擎的方法 填充数据
+					var resultStr =template('template',jsArr);
+					//添加到界面上
+					$('.container').append(resultStr);
+					console.log("success!");
+				}
+			});
+		})
+	})
+</script>
