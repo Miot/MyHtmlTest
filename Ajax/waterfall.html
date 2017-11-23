@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <title>JQuery 实现瀑布流</title>
+        <style>
+        body {
+                text-align: center;
+                margin: 0;
+                padding: 0;
+                background-color: #F7F7F7;
+                font-family: '微软雅黑';
+        }
+        
+        .wrapper {
+                padding: 50px;
+        }
+        
+        img {
+                display: block;
+                width: 100%;
+                height: 300px;
+        }
+        
+        .items {
+                position: relative;
+                /* display: flex; */
+                /* 环函 */
+                /* flex-wrap: wrap; */
+        }
+        
+        .item {
+                width: 228px;
+                position: absolute;
+        }
+        
+        .tips {
+                width: 280px;
+                height: 40px;
+                margin: 0 auto 0;
+                text-align: center;
+                line-height: 40px;
+                background-color: #CCC;
+                border-radius: 6px;
+                font-size: 24px;
+                cursor: pointer;
+        }
+        
+        .tips.loading {
+                /* background-color: transparent; */
+                background-color: #ccc;
+        }
+        </style>
+     
+</head>
+
+<body>
+        <h1>瀑布流 展示页面</h1>
+        <div class="wrapper">
+                <!-- items 作为 瀑布流的容器  瀑布流中的 元素的 宽度 是固定的 -->
+                <div class="items">
+                </div>
+                <p class="tips loading" >点击加载</p>
+        </div>
+</body>
+</html>
+
+<!-- 导入 要使用包 -->
+<!-- jq -->
+<script type="text/javascript" src='jquery.min.js'></script>
+<!-- 模板引擎 -->
+<script type="text/javascript" src='template-web.js'></script>
+<!-- 自己的瀑布流插件 -->
+<script type="text/javascript" src='jquery.waterfall.js'></script>
+
+<!-- 定义模板 -->
+<script type="text/template" id='template'>
+	{{each}}
+    <div class='item'>
+        <img src="{{$value.path}}">
+        <p>{{$value.text}}</p>
+    </div>
+	{{/each}}
+</script>
+
+<!-- 为按钮绑定点击事件 -->
+<script type="text/javascript">
+	$(function(){
+		$('.tips').click(function(){
+			$.ajax({
+				url:'waterfall.php',
+				type:'get',
+				dataType:"json",
+				success:function(data){
+					//console.log(data);
+					var resultStr = template('template',data);
+					$('.items').append(resultStr);
+					$('.items').waterfall();
+				}
+			})
+		});
+	})
+</script>
+
