@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		
+	</style>
+</head>
+<body>
+	<h2>自己实现模板引擎</h2>
+</body>
+</html>
+<script id="template" type="text/html">
+	<ul>
+		<li>{{name}}</li>
+		<li>{{age}}</li>
+	</ul>
+</script>
+<script src="my_template.js"></script>
+<script>
+	//准备数据
+	var data = {
+	 	name:'Mio',
+	 	age:'0'
+	}
+	// //获取模板中的内容
+	// var str = document.querySelector("#template").innerHTML;
+	// console.log(str);
+	// //替换模板中的内容
+	// var reg = /{{(\w+)}}/;
+	// //检索满足正则的部分
+	// var result = reg.exec(str);
+	// str = str.replace(result[0],data[result[1]]);
+	// console.log(str);
+
+	//while循环优化
+	// var str = document.querySelector("#template").innerHTML;
+	// var reg = /{{(\w+)}}/;
+	// var result = reg.exec(str);
+	// while(result){
+	// 	str = str.replace(result[0],data[result[1]]);
+	// 	result = reg.exec(str);
+	// }
+	// console.log(str);
+
+	//调用自己封装的函数
+	var resultString = my_template("template",data);
+	console.log(resultString);
+</script>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		
+	</style>
+</head>
+<body>
+	<input type="button" value="jq发送jsonp" id="jqJsonp">
+</body>
+</html>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+	function myJsonPCallBack(data){
+		console.log('自定义回调函数名'+data);
+	}
+	$(function(){
+		$('#jqJsonp').click(function(){
+			$.ajax({
+				url:'jq_jsonP.php',
+				success:function(data){
+					console.log(data);
+				},
+				dataType:'jsonp',
+				// 自定义jasoncallback的名称
+				jsonpCallback:'myJsonPCallBack'
+			})
+		})
+	})
+</script>
