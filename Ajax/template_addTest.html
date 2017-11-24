@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+<style type="text/css">
+	body ul{
+		list-style: none;
+	}
+</style>
+</head>
+<body></body>
+</html>
+<script src="template-web.js"></script>
+<!-- 逻辑语句 -->
+<script type="text/html" id="ifTemplate">
+	<ul>
+		{{if age=='0'}}
+		<li>欢迎{{name}}登陆
+			<ol>
+				<li>Hello {{skill}} World</li>
+			</ol>
+		</li>
+		{{else if age=='1'}}
+		<li>欢迎{{name}}登陆
+			<ol>
+				<li>Hello {{skill}} World</li>
+			</ol>
+		</li>
+		{{/if}}
+	</ul>
+</script>
+<script>
+	var person = {
+		age:'0',
+		name:'Mio',
+		skill:'Web'
+	};
+	var person2 = {
+		age:'1',
+		name:'Miot',
+		skill:'Web+'
+	};
+	//document.body.innerHTML = template('ifTemplate',person1);
+	//document.body.innerHTML = template('ifTemplate',person2);
+</script>
+<!-- 原文输出 -->
+<script id="norTemplate" type="text/html">
+	<ul>
+		<li>{{name}}</li>
+		<li>{{@info}}</li>
+	</ul>
+</script>
+<script>
+	var person = {
+		name:'百度',
+		info:'<a href="http://www.baidu.com">地址</a>'
+	}
+	//document.body.innerHTML = template('norTemplate',person);
+</script>
+<!-- 循环语句 -->
+<script id="eachTemplate" type="text/html">
+	<ul>
+		<li>{{first}}</li>
+		{{each others}}
+		<li>{{$value}}</li>
+		{{/each}}
+		<li>附加：
+			<ol>
+				{{each adds}}
+				<li>{{$value.name}}----{{$value.age}}</li>
+				{{/each}}
+			</ol>
+		</li>
+	</ul>
+</script>
+<script>
+	var num = {
+		first:'1',
+		others:[
+			'2',
+			'3',
+			'4',
+			'5'
+		],
+		adds:[
+			{name:'mio',age:'0'},
+			{name:'miot',age:'1'}
+		]
+	}
+	document.body.innerHTML = template('eachTemplate',num);
+</script>
