@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <title>JQuery 实现瀑布流</title>
+        <style>
+        body {
+                text-align: center;
+                margin: 0;
+                padding: 0;
+                background-color: #F7F7F7;
+                font-family: '微软雅黑';
+        }
+        
+        .wrapper {
+                padding: 50px;
+        }
+        
+        img {
+                display: block;
+                width: 100%;
+                height: 300px;
+        }
+        
+        .items {
+                position: relative;
+        }
+        
+        .item {
+                width: 228px;
+                position: absolute;
+                margin:15px;
+        }
+        
+        .tips {
+                width: 280px;
+                height: 40px;
+                margin: 0 auto 0;
+                text-align: center;
+                line-height: 40px;
+                background-color: #CCC;
+                border-radius: 6px;
+                font-size: 24px;
+                cursor: pointer;
+        }
+        
+        .tips.loading {
+                /* background-color: transparent; */
+                background-color: #ccc;
+        }
+
+        .tips.disabled {
+                        background-color: gray;
+                        cursor: not-allowed;
+        }
+
+        * {
+                transition: all 1s;
+        }
+        </style>
+     
+</head>
+
+<body>
+        <h1>瀑布流 展示页面</h1>
+        <div class="wrapper">
+                <!-- items 作为 瀑布流的容器  瀑布流中的 元素的 宽度 是固定的 -->
+                <div class="items">
+                </div>
+                <p class="tips loading" >点击加载</p>
+        </div>
+</body>
+</html>
+<!-- JQ -->
+<script type="text/javascript" src='jquery.min.js'></script>
+<!-- 定义模板 -->
+<script src='template-web.js'></script>
+<script id='template' type="text/html">
+        {{each items}}
+        <div class="item">
+                <img src="{{$value.path}}" alt="">
+                <p>{{$value.text}}</p>
+        </div>
+        {{/each}}
+</script>
+<script src='masonry.pkgd.min.js'></script>
+<script>
+	$(function(){
+                //定义页码
+                var my_currentPage = 1;
+		
+		$('.tips').click(function(){
+                        //添加判断按钮类名决定是否可以点击
+                        if($(this).hasClass('disabled')==true){
+                                alert('完');
+                                return;
+                        }
+                        //点击变·······
+			$(this).html('·');
+			var $this = $(this);
+			//定时器
+			var interId = setInterval(function(){
+				var oldStr = $this.html();
+				if(oldStr.length>5){
+					oldStr='';
+				}
+				oldStr += '·';
+				$this.html(oldStr);
+			},650)
+			//ajax获取数据
+			$.ajax({
+			     url:'waterfall_pro.php',
+                             type:'post',
+                             data:{
+                                currentPage:my_currentPage,
+                                pageSize:10
+                             },
+                             success:function(data){
+                                //console.log(data);
+                                clearInterval(interId);
+                                //修改内容为页码
+                                $('.tips').html(data.currentPage+'/'+data.totalPage);
+                                //渲染页面
+                                var result = template('template',data);
+                                //console.log(result);
+                                //$('.items').append(result);
+                                //瀑布流插件
+                                //****转成dom元素才能用*****
+                                var $dom = $(result);
+                                $('.items').masonry({
+                                        //取消抖动
+                                        transitionDuration: 0
+                                }).append($dom).masonry('appended',$dom).masonry();
+                                //累加页码
+                                if(my_currentPage==data.totalPage){
+                                        //阻止点击
+                                        $('.tips').addClass('disabled');
+                                }else{
+                                my_currentPage++;}
+                             }
+			})
+		})
+	})
+</script>
