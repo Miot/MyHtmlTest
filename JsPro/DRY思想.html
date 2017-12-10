@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+
+    <script>
+
+        //使用函数将代码封装，使得复用性更高
+
+        //使用函数封装带来的问题：
+        //1.全局变量污染
+        //2.代码结构不够清晰，维护不方便
+
+
+        //使用对象进行封装后的优势
+        //1.暴露在全局的只有一个对象名 不会造成全局变量污染
+        //2.使用对象将代码进行功能模块的划分，有利于日后的维护
+
+        window.onload = function () {
+
+            var divs = myQuery.getEle.tag("div");
+            myQuery.setCss.setStyle(divs);
+
+            var ps = myQuery.getEle.tag("p");
+            myQuery.setCss.setStyle(ps);
+        }
+
+
+
+
+        var myQuery = {
+            //获取dom元素的方法们
+            getEle:{
+                tag: function (tagName){
+                    return document.getElementsByTagName(tagName);
+                },
+                id: function (id){
+                    return document.getElementById(id);
+                },
+                class:function (className){
+                	return document.getElementsByClassName(className);
+                },
+            },
+            //设置样式的方法们
+            setCss: {
+                setStyle: function (elements){
+                    for (var j = 0; j < elements.length; j++) {
+                        var ele = elements[j];
+                        ele.style.border = "1px solid red";
+                    }
+                }
+            },
+        }
+
+    </script>
+</head>
+<body>
+<div></div>
+<div></div>
+<div></div>
+
+<p>第1个p元素</p>
+<p>第2个p元素</p>
+<p>第3个p元素</p>
+</body>
+</html>
