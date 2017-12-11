@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	
+</body>
+</html>
+<script>
+	//封装
+	// var name = "Mio";
+	// var age = 1;
+	// function sayHi(){
+	// 	console.log("hello world");
+	// }
+	//继承
+	var obj = {};
+	var obj1 ={
+		name:"Mio",
+		sayHi:function(){
+			console.log("hello world");
+		}
+	}
+	//混入式继承 for in
+	for(var k in obj1){
+		obj[k] = obj1[k];
+	}
+	obj.sayHi();
+	console.log(obj);
+</script>

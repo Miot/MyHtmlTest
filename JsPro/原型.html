@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+</body>
+</html>
+<script>
+	function Person(name,age){
+		this.name = name;
+		this.age = age;
+		this.act = function(){
+			console.log("hi");
+		}
+	}
+	var p = new Person("admin","0");
+	//访问构造函数的原型 构造函数.prototype
+	console.log(Person.prototype);
+	//给原型对象添加属性和方法
+		//1.利用对象的动态特性给原型对象添加成员
+	        Person.prototype.sayHello = function () {
+	            console.log("Hello");
+	        }
+
+	        var p = new Person("test1", 1);
+	        p.sayHello();
+
+	        //2.直接替换原型对象
+	        Person.prototype = {
+	            msg : "你猜我在不在"
+	        };
+
+	        var p1 = new Person("test2",2);
+	        console.log(p1.msg);
+	        
+	        //p1.sayHello();  //不能
+	        p.sayHello();   //能
+	//访问原型
+		//__proto__（非标准的属性）
+		console.log(p.__proto__);
+</script>
