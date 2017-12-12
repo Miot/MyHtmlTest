@@ -29,4 +29,24 @@
 	}
 	obj.sayHi();
 	console.log(obj);
+	console.log('-----------------');
+	//经典继承的语法
+	var o ={
+		name:'Mio'
+	}
+	// var myO = Object.create(o);
+	// console.log(myO.name);
+
+	//兼容性Object.create写法
+	function create(obj){
+		if(Object.create){
+			return Object.create(obj);
+		}else{
+			function F(){};
+			F.prototype = obj;
+			return new F();
+		}
+	}
+	
+	console.log(create(o).name);
 </script>

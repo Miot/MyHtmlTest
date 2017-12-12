@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+</body>
+</html>
+<script>
+	function MyArray(){
+	}
+	//安全扩展一个内置对象（不能直接修改内置对象的原型）
+	MyArray.prototype = [];
+	//实例化
+	var myArr = new MyArray(); 
+	myArr.push(1);
+	myArr.push(2);
+	myArr.push(3);
+	console.log(myArr);
+</script>

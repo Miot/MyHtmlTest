@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+</body> 
+</html>
+<script>
+	//原型链的基本形式
+	function Person(){
+
+	}
+	var p = new Person();
+	//p -->p.__proto__(Person.prototype)-->Object.prototype-->null
+	//当访问一个对象的成员时，会现在自身查找，再去当前对象的原型对象中查找，再到原型对象的原型对象中查找直到去Objective.prototype中查找。
+	//通过修改原型链结构实现的继承，就叫做原型继承
+	function A(){
+		this.num = "1";
+	}
+	B.prototype = new A();
+	B.prototype.constructor = B;
+
+	function B(){
+		this.num = "2";
+	}
+	C.prototype = new B();
+	C.prototype.constructor = C;
+	
+	function C(){
+		this.num = "3";
+	}
+	D.prototype = new C();
+	D.prototype.constructor = D;
+	
+	function D(){
+		this.num = "4";
+	}
+	
+	var test = new D();
+	console.log(test);
+</script>
