@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+</body>
+</html>
+<script>
+	//eval 是个函数 可以将字符串转化成JavaScript代码并且运行
+	var str = "var a = 10";
+	eval(str);
+	console.log(a); 
+	//json格式的数据 (但JSON有兼容性)
+	// var jsonData = '{"name":"Mio","age":1}';
+	// var o = JSON.parse(jsonData);
+	// console.log(o);
+	var jsonData = '({"name":"Mio","age":1})';
+	var o = eval(jsonData);
+	console.log(o);
+</script>

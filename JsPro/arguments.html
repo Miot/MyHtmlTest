@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+</body>
+</html>
+<script>
+	function max(){
+		// console.log(arguments);
+		var maxNum = arguments[0];
+		for(var i=1;i<arguments.length;i++){
+			maxNum = maxNum > arguments[i] ? maxNum : arguments[i];
+			return maxNum;
+		}
+	}
+	function removeRpt(){
+		var tempArr = [];
+		for(var i=0;i<arguments.length;i++){
+			if(tempArr.indexOf(arguments[i])==-1){
+				tempArr.push(arguments[i]);
+			}
+		}
+		return tempArr;
+	}
+	function test(){
+        console.log(arguments);
+    }
+    //1.一个函数有形参的时候，调用的时候，可以不传参数
+    //2.一个函数没有形参的时候，调用时候，可以传参   arguments对象
+    //3.一个函数不管有没有形参，调用的时候都会把实参的值存入arguments对象
+	console.log(max(1,22,4));
+	console.log(removeRpt(12,22,22,4));
+	test(1,2);
+</script>
