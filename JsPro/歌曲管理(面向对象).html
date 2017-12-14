@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+</body>
+</html>
+<script>
+	function SongManager(){
+            this.songList = null;
+        }
+
+        //在当前对象的方法中，调用当前对象的其他方法，需要使用this
+        
+        SongManager.prototype = {
+            init:function (songList) {
+                this.songList = songList;
+            },
+
+            addSong: function (song){
+                this.songList.push(song);
+            },
+
+            removeSong:function (songName){
+                var song = this.selectSong(songName);
+                if(song == null){
+                    throw "您要删除的歌曲不存在";
+                }
+                var index = this.songList.indexOf(song);
+                this.songList.splice(index, 1);
+            },
+
+            updateSong: function (songName, singer) {
+                var song = this.selectSong(songName);
+                if(song == null){
+                    throw "您要修改的歌曲不存在";
+                }
+                song.singer = singer;
+            },
+
+            selectSong: function (songName) {
+                for (var k = 0; k < this.songList.length; k++) {
+                    var song = this.songList[k];
+                    if(song.songName == songName){
+                        return song;
+                    }
+                }
+                return null;
+            }
+        };
+
+        var myManager = new SongManager();
+        myManager.init([
+            {songName:"song1",singer:"singer1"},
+            {songName:"song2",singer:"singer2"}
+        ]);
+
+        myManager.addSong({
+            songName:"song3",
+            singer:"singer3"
+        });
+        //myManager.removeSong("song3");
+		myManager.updateSong("song2","newSinger");
+        console.log(myManager.songList);
+</script>

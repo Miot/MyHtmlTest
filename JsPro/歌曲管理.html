@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+</body>
+</html>
+<script>
+	var songList = [
+		{songName:"song1",singer:"singer1"},
+		{songName:"song2",singer:"singer2"}
+	];
+
+	//增
+	console.log("增-----------");
+	function addSong(song){
+		songList.push(song);
+	}
+	addSong({songName:"song3",singer:"singer3"});
+	console.log(songList);
+	
+	//删
+	console.log("删-----------");
+	function delSong(songName){
+		// for(var i=0;i<songList.length;i++){
+		// 	var song = songList[i];
+		// 	if(song.songName == songName){
+		// 		songList.splice(i,1);
+		// 	}
+		// }
+
+		var song = select(songName);
+		var index = songList.indexOf(song);
+		songList.splice(index,1);
+	}
+	delSong("song1");
+	console.log(songList);
+
+	//改
+	console.log("改-----------");
+	function updateSong(songName,newSongName,newSinger){
+		// for(var j=0;j<songList.length;j++){
+		// 	var song = songList[j];
+		// 	if(song.songName == songName){
+		// 		song.songName = newSongName;
+		// 		song.singer = newSinger;
+		// 	}
+		// }
+
+		var song = select(songName);
+		song.songName = newSongName;
+		song.singer = newSinger;
+	}
+	updateSong("song2","song1","singer1");
+	console.log(songList);
+
+	//查
+	console.log("查-----------");
+	function select(songName){
+		for(var k=0;k<songList.length;k++){
+			var song = songList[k];
+			if(song.songName == songName){
+				return song;
+			}
+		}
+		return null;
+	}
+	console.log(select("song3"));
+	
+</script>
