@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+</body>
+</html>
+<script>
+	var num1 = 123;
+	function foo1() {
+	    var num1 = 456;
+	    function foo2() {
+	        num1 = 789;
+	        function foo3 () {
+	            console.log( num1 );
+	        }
+	        foo3();
+	    }
+	    foo2();
+	}
+	foo1();//786
+	console.log( num1 );//123
+
+	console.log("-------------------");
+	var num = 123;
+	function func1(){
+	    console.log(num);
+	}
+
+	function func2(){
+	    var num = 456;
+	    func1();
+	}
+
+	func2();//123
+
+</script>
