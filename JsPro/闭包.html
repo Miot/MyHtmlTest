@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+</body>
+</html>
+<script>
+	//js中的闭包就是函数，原理就是作用域访问原则
+	//闭包为了解决外部访问内部的问题
+	function foo(){
+		var num = 123;
+
+		return function(a){
+			if(a !== undefined){
+				num = a;
+				return num;
+			}else{
+				return num;
+			}
+		};
+	};
+	var func = foo();
+	console.log(func(678));
+
+</script>

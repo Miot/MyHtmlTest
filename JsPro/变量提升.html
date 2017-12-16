@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+</body>
+</html>
+<script>
+	// function Foo(){
+	// 	getName = function(){console.log(1);}
+	// 	return this;
+	// }
+
+	// Foo.getName = function(){console.log(2);}
+
+	// Foo.prototype.getName = function(){console.log(3);}
+
+	// var getName = function(){console.log(4);}
+
+	// function getName(){console.log(5);}
+	console.log("----------------提升之后----------------");
+	function Foo(){
+	 	getName = function(){console.log(1);}
+	 	return this;
+	}
+	var getName;
+	function getName(){console.log(5);}
+	Foo.getName = function(){console.log(2);}
+	Foo.prototype.getName = function(){console.log(3);}
+	getName = function(){console.log(4);}
+
+
+	Foo.getName();//2
+	getName();//4
+	Foo().getName();//1 (this是window)
+	getName();//1
+
+	new Foo.getName();// 2   构造函数没有形参可以省略括号
+	new (Foo.getName());//等同于上面
+
+	(new Foo()).getName();// 3   函数没有 找原型
+	new Foo().getName();//等同于上面
+	new (new Foo()).getName();//3 最前面的new没有意义
+</script>

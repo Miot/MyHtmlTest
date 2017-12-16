@@ -29,12 +29,23 @@
 	function func1(){
 	    console.log(num);
 	}
-
 	function func2(){
 	    var num = 456;
 	    func1();
 	}
-
 	func2();//123
-
-</script>
+	console.log("-------------------");
+	if("a" in window){
+		var a = 10;
+	}
+	console.log(a);
+	console.log("-------------------");
+	var foo = 1;
+	function bar(){
+		if(!foo){
+			var foo = 99;
+		}
+		console.log(foo);
+	}
+	bar();
+</script> 

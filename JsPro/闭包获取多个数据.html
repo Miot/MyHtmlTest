@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+</body>
+</html>
+<script>
+	// function foo(){
+	// 	var name = "Mio";
+	// 	var age = "0";
+
+	// 	return [function(){
+	// 		return name;
+	// 	},function(){
+	// 		return age;
+	// 	}]
+	// }
+
+	// var get = foo();
+	// console.log(get[0]());
+	// console.log(get[1]());
+
+	function foo(){
+		var name = "Mio";
+		var age = "0";
+
+		return {
+			getName:function(){
+				return name;
+			},
+			setName:function(value){
+				name = value;
+				return name;
+			},
+			getAge:function(){
+				return age;
+			},
+			setAge:function(value){
+				age = value;
+				return age;
+			}
+		}
+	}
+
+	var foo = foo();
+	console.log(foo.setName("testName"));
+	console.log(foo.getName());
+	console.log(foo.getAge());
+</script>
