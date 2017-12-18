@@ -14,7 +14,9 @@
 
         //n (n-2)+(n-1)
 
+        var count = 0;
         function fibonacci(n){
+        	count ++;
             if(n <= 2){
                 return 1;
             }
@@ -22,7 +24,31 @@
         }
 
         console.log(fibonacci(10));
-
+        console.log(count);
+        console.log("------用缓存解决性能问题------");
+        //定义一个缓存数组，存储已经计算出来的斐波那契数列
+        //先从cache数组中获取数字，如果没有获取到，就去计算并把计算结果存入cache
+        var count2 = 0;
+        function createFib(){
+        	var cache = [];
+       		function fib(n){
+       			count2 ++;
+        		if(cache[n] !== undefined){
+        			return cache[n];
+        		}
+        		if(n<=2){
+        			cache[n] = 1;
+        			return 1;
+        		}
+        		var temp = fib(n-1)+fib(n-2);
+        		cache[n] = temp;
+        		return temp;
+        	}
+        	return fib;
+        }
+        var fib = createFib();
+		console.log(fib(10));
+		console.log(count2);
     </script>
 </head>
 <body>
