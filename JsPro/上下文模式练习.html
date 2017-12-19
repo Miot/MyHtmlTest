@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		div{
+            margin: 5px;
+            height: 200px;
+            width: 200px;
+            border:6px dashed #ccc;
+        }
+        p{
+            display: block;
+            height: 200px;
+            width: 200px;
+            border:6px dashed #ccc;
+        }
+	</style>
+</head>
+<body>
+	<div></div>
+	<div></div>
+	<div></div>
+	<p></p>
+	<p></p>
+	<p></p>
+</body>
+</html>
+<script>
+	//求数组最大值
+	var arr = [5,24,67,7];
+	var max = Math.max.apply(null,arr);
+	console.log(max);
+	//将传入的参数打印，参数之间用-相互连接
+	function foo(){
+		//伪数组arguments不具有join方法，所以这个时候就要考虑去借用一下数组的join方法
+		// var str = Array.prototype.join.apply(arguments,["-"]);
+		var str = [].join.apply(arguments,["-"]);
+		return str;
+	}
+	var str = foo(1,3,"abd","rr",7);
+	console.log(str);
+	//给页面上所有的 div 和 p 标签添加背景色
+	var divs = document.getElementsByTagName("div");
+    var ps = document.getElementsByTagName("p");
+    // for(var i=0;i<divs.length;i++){
+    // 	var div = divs[i];
+    // 	div.style.backgroundColor = "green";
+    // }
+    // for(var j=0;j<ps.length;j++){
+    // 	var p = ps[j];
+    // 	p.style.backgroundColor = "red";
+    // }
+
+    var myArr = [];
+    myArr.push.apply(myArr,divs);
+    myArr.push.apply(myArr,ps);
+    for(var k=0;k<myArr.length;k++){
+    	var ele = myArr[k];
+    	ele.style.backgroundColor = "#ccc";
+    }
+    
+	
+</script>

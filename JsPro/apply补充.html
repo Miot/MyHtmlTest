@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+</body>
+</html>
+<script>
+	//伪数组
+	var obj = {
+		0:"abc",
+		1:"def",
+		2:"ghi",
+		length:3
+	};
+	// 变成数组
+	var arr  = [];
+	arr = arr.concat.apply(arr,obj);
+	console.log(arr);
+
+	//借用构造函数
+	function Person(){
+		this.name = "Mio";
+		this.age = 0;
+	}
+	function Stu(){
+		Person.apply(this);
+	}
+	var stu = new Stu();
+	console.log(stu.name+"--"+stu.age);
+
+</script>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		div{
+			width: 200px;
+			height: 200px;
+			background-color: #ccc;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div id="test">TEST</div>
+</body>
+</html>
+<script>
+	//注册事件的方式
+	//1.ele.on事件类型 = function(){}
+	//2.addEventListener(事件类型，事件处理函数，useCapture[捕获])
+	//3.attachEvent(事件类型，事件处理函数)
+
+	//缺点：每次都会进行判断
+	// function registeEvent(target,type,handler){
+	// 	if(target.addEventListener){
+	// 		target.addEventListener(type,handler);
+	// 	}else if(target.attachEvent){
+	// 		target.attachEvent("on"+type,handler);
+	// 	}else{
+	// 		target["on"+type] = handler;
+	// 	}
+	// }
+	// var div = document.getElementById("test");
+	// registeEvent(div,"click",function(){
+	// 	console.log("success");
+	// })
+
+	//在函数中返回函数，只判断一次，function可以复用
+	//使用addEventListener的方式注册的点击事件的回调函数handler中的this 指向target
+	//使用attachEvent的方式注册的点击事件的回调函数handler中的this 指向window
+	function createEventRegister(){
+		if(window.addEventListener){
+			return function(target,type,handler){
+				target.addEventListener(type,handler);
+			}
+		}else if(window.attachEvent){
+			return function(target,type,handler){
+				target.attachEvent("on"+type,function(){
+					handler.call(target,window.event);
+				});
+			}
+		}else{
+			return function(target,type,handler){
+				target["on"+type] = handler;
+			}
+		}
+	}
+	var registeEvent = createEventRegister();
+	var div = document.getElementById("test");
+	registeEvent(div,"click",function(){
+		console.log("success");
+	})
+</script>
