@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+	<canvas id="myCanvas"></canvas>
+</body>
+</html>
+<script>
+	var myCanvas = document.getElementById("myCanvas");
+	//返回一个用于在画布上绘图的环境
+	var cvs = myCanvas.getContext('2d');
+	//设置描边色（必须放在描绘之前）
+	cvs.strokeStyle = "#000";
+	//设置线宽
+	cvs.lineWidth = 8;
+	//起点
+	cvs.moveTo(110,10);
+	//描绘
+	cvs.lineTo(160,60);
+	cvs.lineTo(60,60);
+	//cvs.lineTo(110,10);
+	//解决锯齿
+		//cvs.lineTo(160,60);
+		//闭合路径closePath()  不用谢最后一条线
+		cvs.closePath();
+	//呈现
+	cvs.stroke();
+
+	//清除当前路径 重新绘制
+	cvs.beginPath();
+	cvs.strokeStyle = "red";
+	cvs.moveTo(300,10);
+	cvs.lineTo(300,60);
+	cvs.lineTo(250,60);
+	cvs.lineTo(250,10);
+	cvs.closePath();
+	cvs.stroke();
+</script>

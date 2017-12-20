@@ -48,6 +48,7 @@
 		}else if(window.attachEvent){
 			return function(target,type,handler){
 				target.attachEvent("on"+type,function(){
+					//addEventListener 系统会传一个e 这里不会主动传 要加上
 					handler.call(target,window.event);
 				});
 			}
