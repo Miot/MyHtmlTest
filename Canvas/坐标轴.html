@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		canvas{
+			border: 1px solid #000;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="myCanvas" width="600" height="300"></canvas>
+</body>
+</html>
+<script>
+	var myCanvas = document.getElementById("myCanvas");
+	var ctx = myCanvas.getContext('2d');
+	var padding={
+		top:20,
+		right:20,
+		bottom:20,
+		left:20
+	}
+	var arrow = {
+		width:20,
+		height:20
+	}
+
+	//顶点坐标
+	var vertexTop = {
+		x:padding.left,
+		y:padding.top
+	}
+	//坐标轴原点
+	var origin = {
+		x:padding.left,
+		y:myCanvas.height-padding.bottom,
+	}
+	//右顶点坐标
+	var vertexRight = {
+		x:myCanvas.width-padding.right,
+		y:myCanvas.height-padding.bottom,
+	}
+	//连接
+	ctx.beginPath();
+	ctx.moveTo(vertexTop.x,vertexTop.y);
+	ctx.lineTo(origin.x,origin.y);
+	ctx.lineTo(vertexRight.x,vertexRight.y);
+	ctx.stroke();
+	//加箭头
+	ctx.beginPath();
+	ctx.moveTo(vertexTop.x-(arrow.width/2),vertexTop.y+arrow.height);
+	ctx.lineTo(vertexTop.x,vertexTop.y);
+	ctx.lineTo(vertexTop.x+(arrow.width/2),vertexTop.y+arrow.height);
+	ctx.lineTo(vertexTop.x,vertexTop.y+arrow.height/2);
+	ctx.closePath();
+	ctx.fill();
+	ctx.stroke();
+
+	ctx.beginPath();
+	ctx.moveTo(vertexRight.x-arrow.height,vertexRight.y-(arrow.width/2));
+	ctx.lineTo(vertexRight.x,vertexRight.y);
+	ctx.lineTo(vertexRight.x-arrow.height,vertexRight.y+(arrow.width/2));
+	ctx.lineTo(vertexRight.x-arrow.height/2,vertexRight.y);
+	ctx.closePath();
+	ctx.fill();
+	ctx.stroke(); 
+
+	//相对于原点 画点
+	var points = [[100,100],[136,70],[196,150]];
+	ctx.beginPath();
+	points.forEach(function(arr,index){
+		ctx.fillRect(origin.x+arr[0],origin.y-arr[1],2,2);
+	});
+	
+	//把点连接成线
+	ctx.beginPath();
+	points.forEach(function(arr,index){
+		ctx.lineTo(origin.x+arr[0]+1,origin.y-arr[1]+1);
+	})
+	ctx.stroke();
+</script>

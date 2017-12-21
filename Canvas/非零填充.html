@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+	<canvas id="myCanvas"></canvas>
+</body>
+</html>
+<script>
+	var myCanvas = document.getElementById("myCanvas");
+	var ctx = myCanvas.getContext('2d');
+	//逆时针画
+	ctx.moveTo(35,35);
+	ctx.lineTo(35,55);
+	ctx.lineTo(55,55);
+	ctx.lineTo(55,35);
+	ctx.closePath();
+	//顺时针画
+	ctx.moveTo(15,15);
+	ctx.lineTo(75,15);
+	ctx.lineTo(75,75);
+	ctx.lineTo(15,75);
+	ctx.closePath();
+	//一起填充
+	ctx.fillStyle="green";
+	ctx.fill();
+</script>

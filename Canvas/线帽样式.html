@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+	<canvas id="myCanvas" width="1000" height="1000"></canvas>
+</body>
+</html>
+<script>
+	var myCanvas = document.getElementById("myCanvas");
+	var ctx = myCanvas.getContext('2d');
+	//线帽样式
+	//ctx.lineCap = 'butt'(默认)、'round'、'square'(线头两端各增加线宽的一半)
+	ctx.lineWidth =10;
+
+	ctx.beginPath();
+	ctx.moveTo(10,10);
+	ctx.lineTo(310,10);
+	ctx.stroke();
+
+	ctx.beginPath();
+	ctx.lineCap = 'round';
+	ctx.moveTo(10,30);
+	ctx.lineTo(310,30);
+	ctx.stroke();
+
+	ctx.beginPath();
+	ctx.lineCap = 'square';
+	ctx.moveTo(10,50);
+	ctx.lineTo(310,50);
+ 	//ctx.lineJoin = 'miter'(默认-延伸相交为尖尖角)、'round'、'bevel'(两边相连为一个斜面)
+	ctx.beginPath();
+	ctx.moveTo(10,110);
+	ctx.lineTo(60,210);
+	ctx.lineTo(110,110);
+	ctx.stroke();
+
+	ctx.beginPath();
+	ctx.lineJoin = 'round';
+	ctx.moveTo(120,110);
+	ctx.lineTo(170,210);
+	ctx.lineTo(220,110);
+	ctx.stroke();
+
+	ctx.beginPath();
+	ctx.lineJoin = 'bevel';
+	ctx.moveTo(230,110);
+	ctx.lineTo(280,210);
+	ctx.lineTo(330,110);
+	ctx.stroke();
+</script>

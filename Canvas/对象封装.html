@@ -3,7 +3,11 @@
 <head>
 	<meta charset="UTF-8">
 	<title></title>
-	<style></style>
+	<style>
+		canvas{
+			border: 1px solid #000;
+		}
+	</style>
 </head>
 <body>
 	<canvas id="myCanvas"></canvas>
@@ -12,15 +16,15 @@
 <script>
 	var myCanvas = document.getElementById("myCanvas");
 	var ctx = myCanvas.getContext('2d');
-	function juXing(startX,startY,width,height,lineWidth,strokeStyle){
-		ctx.strokeStyle=strokeStyle;
-		ctx.moveTo(startX,startY);
-		ctx.lineTo(startX+width,startY);
-		ctx.lineTo(startX+width,startY+height);
-		ctx.lineTo(startX,startY+height);
-		ctx.closePath();
-		ctx.stroke();
-	}
+	// function juXing(startX,startY,width,height,lineWidth,strokeStyle){
+	// 	ctx.strokeStyle=strokeStyle;
+	// 	ctx.moveTo(startX,startY);
+	// 	ctx.lineTo(startX+width,startY);
+	// 	ctx.lineTo(startX+width,startY+height);
+	// 	ctx.lineTo(startX,startY+height);
+	// 	ctx.closePath();
+	// 	ctx.stroke();
+	// }
 	//juXing(100,10,100,100,2,"red");
 	//面向對象
 	function JuXing(ctx,startX,startY,width,height,lineWidth,strokeStyle){
@@ -34,13 +38,26 @@
 	}
 	//给原型添加绘制方法
 	JuXing.prototype.draw = function(){
+		this.ctx.beginPath();
 		this.ctx.moveTo(this.startX,this.startY);
 		this.ctx.lineTo(this.startX+this.width,this.startY);
 		this.ctx.lineTo(this.startX+this.width,this.startY+this.height);
 		this.ctx.lineTo(this.startX,this.startY+this.height);
 		this.ctx.closePath();
+
+		this.ctx.lineWidth = this.lineWidth;
+		this.ctx.strokeStyle = this.strokeStyle;
+
 		this.ctx.stroke();
+		
 	}
-	var juxi = new JuXing(ctx,100,10,100,100,3,"green");
-	juxi.draw();
+	var juxing = new JuXing(ctx,100,10,100,100,4,"red");
+	juxing.draw();
+
+	setInterval(function(){
+		ctx.clearRect(0,0,myCanvas.width,myCanvas.height);
+		juxing.startX += 2;
+		juxing.draw();
+	},50);
+	
 </script>

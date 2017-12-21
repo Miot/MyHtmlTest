@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+	<canvas id="myCanvas"></canvas>
+</body>
+</html>
+<script>
+	var myCanvas = document.getElementById("myCanvas");
+	var ctx = myCanvas.getContext('2d');
+	for(var i = 0;i<=255;i++){
+		//防止重绘
+		ctx.beginPath();
+		ctx.moveTo(10,10+i);
+		ctx.lineTo(210,10+i);
+		ctx.strokeStyle ='rgb(0,'+i+',0)';
+		ctx.stroke();
+	}
+</script>
