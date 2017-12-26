@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+	<canvas id="myCanvas" width="800" height="800"></canvas>
+</body>
+</html>
+<script>
+	// 把角度转换为弧度
+    function angleToRadian(angle) {
+        return Math.PI/180*angle;
+    }
+	// 混入式继承
+    function extend(o1,o2 ) {
+        for(var key in o2 ) {
+            // 只有o2自己的属性才会copy到o1身上
+            if(o2.hasOwnProperty(key)){
+                o1[key] = o2[key];
+            }
+        }
+    }
+
+	//param {data:Array} 饼图数据
+	function Pipe(x,y,r,data){
+		this.x = x;
+		this.y = y;
+		this.r = r;
+		this.data = data;
+		this.colors = ['orange','orchid','palegoldenrod','palegreen','paleturquoise','peru','pink'];
+	}
+	//给原型扩充方法
+	extend(Pipe.prototype,{
+		//绘制饼图
+		draw:function(){
+			var that = this;
+			//数据总和
+			var num = 0;
+			this.data.forEach(function(obj){
+				num += obj.val;
+			})
+			//单位数据值占用的角度
+			var baseAngle = 360/num;
+
+			var startAngle = 0,endAngle = 0,lineAngle = 0,lineX = 0,lineY = 0;
+			// 画扇形
+			this.data.forEach(function(obj,i){
+				startAngle = endAngle;
+				//计算扇形结束角度
+				endAngle = endAngle + baseAngle * obj.val;
+				
+				//画扇形
+				ctx.beginPath();
+				ctx.moveTo(that.x,that.y);
+				ctx.arc(that.x,that.y,that.r,angleToRadian(startAngle),angleToRadian(endAngle));
+				ctx.closePath();
+				ctx.fillStyle = that.colors[i];
+				ctx.fill();
+
+				//求扇形区域中 中线的角度
+				lineAngle = startAngle + baseAngle * obj.val / 2;
+				//根据中线角度求 中间的线的x 和 y 坐标
+				lineX = that.x + (that.r+20) * Math.cos(angleToRadian(lineAngle));
+				lineY = that.y + (that.r+20) * Math.sin(angleToRadian(lineAngle));
+				//划线
+				ctx.beginPath();
+				ctx.moveTo(that.x,that.y);
+				ctx.lineTo(lineX,lineY);
+				ctx.strokeStyle = that.colors[i];
+				ctx.stroke();
+				
+				//绘制文字
+				if(lineAngle>=90 && lineAngle<=270){
+					ctx.textAlign = 'right';
+				}else{
+					ctx.textAlign = 'left';
+				}
+				ctx.fillText(obj.msg , lineX, lineY);
+			})
+		}
+	});
+</script>
+<script>
+	var myCanvas = document.getElementById("myCanvas");
+	var ctx = myCanvas.getContext('2d');
+	var pipe = new Pipe(200,200,100,[
+		{
+			val:10,
+			msg:'这里有10%'
+		},
+		{
+			val:30,
+			msg:'这里有30%'
+		},
+		{
+			val:20,
+			msg:'这里有20%'
+		}]);
+	pipe.draw();
+</script>

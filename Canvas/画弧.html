@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+	<canvas id="myCanvas" width="800" height="800"></canvas>
+</body>
+</html>
+<script>
+	//把角度转换为弧度
+	function angleToRadian(angle){
+		return Math.PI /180 *angle;
+	}
+
+	var myCanvas = document.getElementById("myCanvas");
+	var ctx = myCanvas.getContext('2d');
+	//画的是路径
+	//ctx.arc(圆心x坐标，圆心y坐标，半径，起点弧度，结束点弧度，[是否逆时针画])
+	ctx.arc(200,200,100,angleToRadian(0),angleToRadian(360));
+	ctx.stroke();
+
+	//画扇形
+	ctx.beginPath();
+	ctx.moveTo(100,300);
+	ctx.arc(100,300,90,angleToRadian(25),angleToRadian(130));
+	ctx.closePath();
+	ctx.stroke();
+</script>

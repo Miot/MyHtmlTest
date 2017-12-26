@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		canvas{
+			border: 1px solid #000;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="myCanvas" width="500" height="500"></canvas>
+</body>
+</html>
+<script>
+	var myCanvas = document.getElementById("myCanvas");
+	var ctx = myCanvas.getContext('2d');
+	ctx.font = '28px Microsoft Yahei';
+
+	//在画布左上角绘制一段文字
+	ctx.textAlign = 'left';
+	ctx.textBaseline = 'top';
+	ctx.fillText('左上角',0,0);
+	//在画布右上角绘制一段文字
+	ctx.textAlign = 'right';
+	ctx.textBaseline = 'top';
+	ctx.fillText('右上角',myCanvas.width,0);
+	//在画布左下角绘制一段文字
+	ctx.textAlign = 'left';
+	ctx.textBaseline = 'bottom';
+	ctx.fillText('左下角',0,myCanvas.height);
+	//在画布右下角绘制一段文字
+	ctx.textAlign = 'right';
+	ctx.textBaseline = 'bottom';
+	ctx.fillText('右下角',myCanvas.width,myCanvas.height);
+</script>
