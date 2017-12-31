@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		canvas{
+			border: 1px solid #000;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="myCanvas" width="700" height="700"></canvas>
+	<img src="imgs/cat.jpeg" alt="">
+</body>
+</html>
+<script>
+	var myCanvas = document.getElementById("myCanvas");
+	var ctx = myCanvas.getContext('2d');
+	var img = document.querySelector("img");
+	//绘制图形
+	//ctx.drawImage(图像，裁剪起点x，裁剪起点y，裁剪宽，裁剪高，起点x，起点y，宽，高)
+	//加载完毕后使用
+	img.onload = function(){
+		ctx.drawImage(img,
+			230,85,265,250,
+			10,10,700,670);
+	}
+</script>

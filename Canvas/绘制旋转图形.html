@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		canvas{
+			border: 1px solid #000;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="myCanvas" width="400" height="400"></canvas>
+</body>
+</html>
+<script>
+	var myCanvas = document.getElementById("myCanvas");
+	var ctx = myCanvas.getContext('2d');
+
+	//在100,100点 绘制一个宽50 高50的矩形（旋转）
+	var baseRadian = 0;
+	ctx.fillStyle = 'green';
+	//方法1
+	// setInterval(function(){
+	// 	//记录坐标轴 避免累加
+	// 	ctx.save();
+	// 	//清除画布
+	// 	ctx.clearRect(0,0,myCanvas.width,myCanvas.height);
+	// 	//先平移坐标轴
+	// 	ctx.translate(125,125);
+	// 	//再旋转坐标轴
+	// 	ctx.rotate(baseRadian += Math.PI / 180 * 4);
+	// 	//绘制图像
+	// 	ctx.fillRect(-25,-25,50,50);
+	// 	ctx.restore();
+	// },70);
+	//方法2（先平移）
+	ctx.translate(125,185);
+	setInterval(function(){
+		//清除画布
+		ctx.clearRect(-50,-50,myCanvas.width,myCanvas.height);
+		//再旋转坐标轴
+		ctx.rotate( Math.PI / 180 * 4);
+		//绘制图像
+		ctx.fillRect(-25,-25,50,50);
+	},70);
+
+</script>

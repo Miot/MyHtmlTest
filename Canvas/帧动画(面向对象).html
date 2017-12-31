@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		canvas{
+			border: 1px solid #000;
+		}
+		img{
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="myCanvas" width="79" height="79"></canvas>
+	<img src="imgs/egg.png" alt="">
+</body>
+</html>
+<script>
+	var myCanvas = document.getElementById("myCanvas");
+	var ctx = myCanvas.getContext('2d');
+	var img = document.querySelector("img");
+
+	//混入继承
+	function extend(o1,o2){
+		for(var key in o2){
+			if(o2.hasOwnProperty(key)){
+				o1[key] = o2[key];
+			}
+		}
+	}
+
+	/*
+	* constructor {Person} 人构造函数
+	* param { ctx:Context } 绘制环境
+	* param { img:Image } 绘制图像
+	* param { widthFrame:Image } 图像横向有几个
+	* param { heightFrame:Image } 图像纵向有几个
+	* param { x:number } 图像位置x坐标
+	* param { y:number } 图像位置y坐标
+	* param { renderWidth:number } 绘制图像的宽
+	* param { renderHeight:number } 绘制图像的高
+	*/
+	function Person(ctx,img,widthFrame,heightFrame,x,y,renderWidth,renderHeight){
+		this.ctx = ctx;
+		this.img = img;
+		this.widthFrame = widthFrame;
+		this.heightFrame = heightFrame;
+		this.x = x;
+		this.y = y;
+		this.renderWidth = renderWidth;
+		this.renderHeight = renderHeight;
+		//单位宽高
+		this.width = this.img.width / this.widthFrame;
+		this.height = this.img.height / this.heightFrame;
+		//当前绘制某个方向的第几帧
+		this.currentFrame = 0;
+	}
+	
+	//给原型添加方法
+	extend(Person.prototype,{
+		draw:function(){
+			this.ctx.drawImage(this.img,this.width*this.currentFrame,0,this.width,this.height,this.x,this.y,this.renderWidth,this.renderHeight);
+		}
+	});
+</script>
+<script>
+	img.onload = function(){
+		var person = new Person(ctx,img,11,1,0,0,79,79);
+		
+		setInterval(function(){
+			//清除画布
+			ctx.clearRect(0,0,myCanvas.width,myCanvas.height);
+			person.draw();
+			person.currentFrame = ++person.currentFrame >= person.widthFrame ? 0 : person.currentFrame++;
+		},90)
+	}
+	
+</script>

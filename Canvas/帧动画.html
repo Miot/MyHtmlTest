@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		canvas{
+			border: 1px solid #000;
+		}
+		img{
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="myCanvas" width="79" height="79"></canvas>
+	<img src="imgs/egg.png" alt="">
+</body>
+</html>
+<script>
+	var myCanvas = document.getElementById("myCanvas");
+	var ctx = myCanvas.getContext('2d');
+	var img = document.querySelector("img");
+	img.onload = function(){
+		var i = 0;
+		setInterval(function(){
+			//绘制新图像时 需要先清除画布
+			ctx.clearRect(0,0,myCanvas.width,myCanvas.height);
+			ctx.drawImage(img,
+				img.width/11*i,0,img.width/11,img.height,
+				0,0,img.width/11,79);
+			if(++i >= 11){
+				i = 0;
+			}
+			
+		},70)
+		
+	}
+</script>
