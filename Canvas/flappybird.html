@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		canvas{
+			border: 1px solid #000;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="myCanvas"></canvas>
+</body>
+</html>
+<script src="loadImage.js"></script>
+<script>
+	function Sky(ctx, img, speed ){
+		this.ctx = ctx;
+		this.img = img;
+		this.width = this.img.width;
+		this.height = this.img.height;
+		this.speed = speed || 2;
+
+		Sky.myLength++;
+		this.x = this.width*(Sky.myLength-1);
+		this.y = 0;
+		
+	}
+	//Sky默认记录背景数量
+	Sky.myLength = 0;
+	//给原型扩充方法
+	Sky.prototype = {
+		constructor : Sky,
+		draw : function(){
+			this.ctx.drawImage(this.img,this.x,this.y);
+		},
+		update: function(){
+			this.x -= this.speed;
+			if(this.x <= -this.width){
+				this.x += this.width*2;
+			}
+		}
+	}
+</script>
+<script>
+	/*param {widthFrame:number} 一排的帧数
+	*param {heightFrame:number} 一列的帧数
+	*param {x:number} 小鸟的起始x坐标
+	*param {y:number} 小鸟的起始y坐标*/
+	function Bird(ctx,img,widthFrame,heightFrame,x,y){
+		this.ctx = ctx;
+		this.img = img;
+		this.widthFrame = widthFrame;
+		this.heightFrame = heightFrame;
+		this.x = x;
+		this.y = y;
+
+		//一只小鸟的宽和高
+		this.width = this.img.width / this.widthFrame;
+		this.height = this.img.height / this.heightFrame;
+
+		//当前小鸟渲染的帧数
+		this.currentFrame = 0;
+
+		//小鸟的下落速度
+		this.speed = 3;
+		//加速度
+		this.speedPlus = 2;
+		//绑定内部事件
+		this._bind();
+	}
+	//给原型扩充方法
+	Bird.prototype = {
+		constructor : Bird,
+		draw : function (){
+			this.ctx.drawImage(this.img,0,this.height * this.currentFrame,this.width,this.height,this.x,this.y,this.width,this.height);
+		},
+		//计算下一帧
+		update : function(){
+			this.currentFrame = ++this.currentFrame >= this.heightFrame? 0 : this.currentFrame;
+			this.y += this.speed;
+			this.speed += this.speedPlus;
+		},
+		//点击上升事件
+		_bind : function(){
+			var that = this;
+			this.ctx.canvas.addEventListener('click',function(){
+				that.speed = -15;
+			});
+		}
+	}
+</script>
+<script>
+	var myCanvas = document.getElementById("myCanvas");
+	var ctx = myCanvas.getContext('2d');
+	loadImage({
+		bird:'imgs/bird.png',
+		ground:'imgs/ground.png',
+		sky:'imgs/sky.png'
+	},function(imgObj){
+		//根据背景大小设置画布
+		myCanvas.width = imgObj.sky.width;
+		myCanvas.height = imgObj.sky.height;
+
+		//创建背景
+		var sky = new Sky(ctx,imgObj.sky,8);
+		var sky2 = new Sky(ctx,imgObj.sky,8);
+		//创建小鸟
+		var bird = new Bird(ctx,imgObj.bird,1,3,20,20);
+		//让背景动起来
+		setInterval(function(){
+			sky.draw();
+			sky.update();
+			sky2.draw();
+			sky2.update();
+			bird.draw();
+			bird.update();
+		},85);
+	})
+</script>
