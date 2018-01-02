@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		canvas{
+			border: 1px solid #000;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="myCanvas"></canvas>
+</body>
+</html>
+<script>
+	var myCanvas = document.getElementById("myCanvas");
+	var ctx = myCanvas.getContext('2d');
+	//判断点在不在路径中的API
+	//ctx.isPointInPath(目标点的x轴坐标，目标点的y轴坐标);
+	ctx.rect(10,10,100,100);
+	ctx.stroke();
+	//点击判断点在否在路径中
+	myCanvas.addEventListener('click',function(e){
+		var x = e.pageX - myCanvas.offsetLeft;
+		var y = e.pageY - myCanvas.offsetTop;
+		console.log(ctx.isPointInPath(x,y));
+	});
+</script>
