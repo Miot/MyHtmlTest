@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+</body>
+</html>
+<script>
+	/*
+	* 监听者模式：
+	* 对于监听者来说，可以是服务与任意多的听户（一个听户就是回调）
+	* 适用于两个对象之间的消息沟通
+	*/
+	var Listener = {
+		//听众列表
+		listeners:[],
+		//事件1 触发时告知所有的听众
+		Event1:function(){
+			this.listeners.forEach(function(listen){
+				listen();
+			});
+		},
+		Event2:function(){
+			this.listeners.forEach(function(listen){
+				listen();
+			});
+		}
+	};
+
+	//模块1
+	(function(w){
+		Listener.listeners.push(function(){
+			console.log('模块1 listener1');
+		});
+	}(window));
+	//模块2
+	(function(w){
+		Listener.listeners.push(function(){
+			console.log('模块2 Event listener1');
+		});
+	}(window));
+
+
+
+	//添加听众
+	Listener.listeners.push(function(){
+		console.log('Event listener1');
+	});
+	Listener.listeners.push(function(){
+		console.log('Event listener2');
+	});
+	//触发事件
+	Listener.Event1();
+	Listener.Event2();
+</script>
