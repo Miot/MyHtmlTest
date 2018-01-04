@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+</body>
+</html>
+<!-- <script src='jquery-2.2.0.js'></script> -->
+<script>
+	//jquery对外暴露了两个方法 jQuery和$
+	//调用这两个方法可以得到一个jQuery实例,是一个伪数组对象
+	// var $div = $('<div></div>');
+	// var jQueryDiv = jQuery('<div></div>');
+	//验证实例是伪数组
+	// console.log(({}).toString.call($div));
+
+
+	//本质是 自调结构
+	(function(w){
+		//对外暴露的工厂函数
+		function jQuery(){
+			return new jQuery.prototype.init();
+		}
+		//原型
+		jQuery.fn = jQuery.prototype = {
+
+		};
+		// init是jquery的构造函数
+		var init = jQuery.fn.init = function(){}
+		;
+		// 替换 构造函数的原型 为 jQuery工厂的原型（实现插件）
+		init.prototype = jQuery.fn;
+
+		w.jQuery = w.$ = jQuery;
+	}(window));
+	//实现一个jQuery插件
+	jQuery.fn.alert = function(msg){
+		alert(msg);
+	};
+	var $$ = $();
+	$$.alert('插件');
+</script>     
