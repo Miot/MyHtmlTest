@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+	<div>
+		<a class="a">1</a>
+		<a class="a">2</a>
+		<a class="a">3</a>
+		<a class="a">4</a>
+	</div>
+<body>
+</body>
+</html>
+<script src='jquery-2.2.0.js'></script>
+<script>
+	//统一返回空实例
+	console.log($());
+	console.log($(null));
+	console.log($(undefined));
+	console.log($(0));
+	console.log($(NaN));
+	console.log($(''));
+
+	//传入选择器，会把下标存储起来，同时添加一个length属性
+	console.log($('.a'));
+	console.log($('div'));
+	console.log($('li'));
+
+	//传入heml片段，会根据片段创建dom对象，然后按照下标存储起来，同时添加一个length属性
+	console.log($('<span></span>'));
+	console.log($('<span><a>a1</a></span><span><a>a2</a></span><span><a>a3</a></span>'));
+	document.body.appendChild( $('<span>Span</span>')[0] );
+
+	//传入的是数组，会把数组中的每一项分别添加到实例上，同时添加一个length属性
+	console.log($(['abc','def']));
+
+	//传入伪数组，会把数组中的每一项分别添加到实例上，同时添加一个length属性
+	var as = document.querySelector("a");
+	console.log($(as));
+
+	//传入对象,把对象按照下标添加到实例上，同时添加一个length属性
+	console.log($(new Date()));
+	console.log($({val:000}));
+
+	//传入基本数据类型 null、undefined除外，字符串除外，直接把数据添加到实例上，同时添加一个length属性
+	console.log($(123));
+	console.log($('ghi'));
+
+	//传入dom,直接把数据添加到实例上，同时添加一个length属性
+	console.log($(document.body));
+	console.log('--------------------------------');
+
+   /* 规律：
+	* 1、传入null、undefined、0、NaN、''返回空实例
+	* 2、传入字符串，判断是html片段还是其他;片段：创建对应的dom并添加到实例上，否则按照选择器获取页面中的dom，然后把获取到的dom添加到实例上
+	* 3、传入数组||伪数组 ，把每一项都添加到实例上
+	* 4、其余的都添加到实例上
+	*/
+	//模拟实现：
+	
+
+
+	function myInit(selector){
+		// 1、传入null、undefined、0、NaN、''返回空实例
+		if( !selector ){
+			return this;
+		}
+		// 2、传入字符串，判断是html片段还是其他;片段：创建对应的dom并添加到实例上，否则按照选择器获取页面中的dom，然后把获取到的dom添加到实例上
+		else if( typeof selector == 'string'){
+			//先去除空格
+			selector = myInit.trim(selector);
+			if( myInit.isHTML(selector) ){
+				// 创建一个临时的div容器
+				// 设置这个div的innerHTML为html片段 这些片段就自动变成了div的子元素
+				// 遍历div的子元素分别添加到this上，并添加length属性
+				var tempDiv = document.querySelector("div");
+				tempDiv.innerHTML = selector;
+				[].push.apply(this,tempDiv.childNodes);
+				return this;
+			}else{
+				//使用querySelectorAll获取页面中的元素
+                //然后遍历获取到所有元素分别添加this身上，记住给实例补充length属性值，
+				try{
+					var nodes = document.querySelectorAll(selector);
+					[].push.apply(this,nodes);
+					return this;
+				}catch(e){
+					this.length = 0;
+					return this;
+				}
+			}
+		}
+		// 3、传入数组||伪数组 ，把每一项都添加到实例上
+		else if(myInit.isArray(selector)){
+ 			[].push.apply(this,selector);
+		}
+		// 4、其余的都添加到实例上
+		else{
+			this[0] = selector;
+            this.length = 1;
+		}
+	}
+	
+
+
+
+	//判断是不是html判断
+	myInit.isHTML = function(html){
+		//如果是空类型
+		if( !html ){
+			return false;
+		}
+		//如果不是空的
+		if( html.charAt(0) =='<' && html.charAt(html.length - 1) == '>' && html.length >= 3 ){
+			return true;
+		}
+	};
+
+	//去空格
+	myInit.trim = function( str ){
+		if( typeof str !== 'string'){
+			return str;
+		}
+		if( str.trim ){
+			return str.trim();
+		}
+		return str.replace(/^\s+|\s+$/g,'');
+	};
+
+	//判断是不是函数
+	myInit.isFunction = function(fn){
+		if( typeof fn == 'function'){
+			return true;
+		}
+		return false;
+	};
+
+	//判断是不是window
+	myInit.isWindow = function( w ){
+		if( w.window == w){
+			return true;
+		}
+		return false;
+	};
+
+	//判断是不是伪数组或真数组
+	myInit.isArray = function(arr){
+		//过滤函数和window以及非对象的其他数据
+		if( myInit.isFunction(arr) || myInit.isWindow(arr) || typeof arr !== 'object' ){
+			return false;
+		}
+		//判断是不是真数组
+		if( ({}).toString.call(arr) == '[object Array]' ){
+			return true;
+		}
+		//判断是不是伪数组
+		if( ('length' in arr) && (arr.length === 0) || (arr.length - 1 in arr) ){
+			return true;
+		}
+		return false;
+	};
+
+
+	//测试html片段
+	// var $spans = new myInit('<span>123456789</span>');
+	// document.body.appendChild($spans[0]);
+
+	//测试选择器
+	// var $as = new myInit('a');
+	// console.log($as);
+	// document.body.appendChild($as[0]);
+
+	//测试数组函数
+	//console.log(myInit.isArray({length:1}));
+
+	//最终测试
+	var a = new myInit([1,,4]);
+    console.log(a);
+</script>

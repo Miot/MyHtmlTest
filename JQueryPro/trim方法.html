@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+</body>
+</html>
+<script src='jquery-2.2.0.js'></script>
+<script>
+	function myTrim ( str ){
+		if( typeof str !== 'string'){
+			return str;
+		}
+		if( str.trim ){
+			return str.trim();
+		}
+		return str.replace(/^\s+|\s+$/g,'');
+	};
+	var test = ' test ';
+	console.log(myTrim(test));
+</script>

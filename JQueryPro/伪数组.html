@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+</body>
+</html>
+<script src='jquery-2.2.0.js'></script>
+<script>
+	//伪数组特点
+	//必须要偶有length属性
+	//如果length为0，那么这个对象有没有元素无所谓
+	//否则，一定要存在(length-1)为下标的属性值
+	var obj = {length:0};
+	var obj = {length:2,0:0,1:1};
+	var obj = {length:4,3:1};
+
+	//不是伪数组：
+	var obj = {length:4,0:1};
+
+</script>

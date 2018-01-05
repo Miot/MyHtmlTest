@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+</body>
+</html>
+<script>
+	//Object.prototype.toString
+	//作用：根据内部的this返回一个“[object constructorName]”
+	//但是无法获取用户自定义的对象的具体类型
+	console.log(Object.prototype.toString.call([]));//[object Array]
+	console.log(Object.prototype.toString.call(new Date()));//[object Date]
+	console.log(Object.prototype.toString.call(Array));//[object Function]
+	//因为{}对象直接继承于Object.prototype
+	//所以可以简写为
+	console.log(({}).toString.call(Date));//[object Function]
+	//自定义对象
+	function myFunction(){};
+	var test = new myFunction();
+	console.log(({}).toString.call(test));//[object Object]
+</script>
