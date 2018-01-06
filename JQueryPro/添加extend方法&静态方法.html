@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+	<span>1</span>
+	<span>2</span>
+	<span>3</span>
+<body>
+</body>
+</html>
+<script>
+	(function(w){
+		// 工厂
+		function jQuery( selector ){
+			return new jQuery.fn.init( selector );
+		};
+		// 替换原型 + 原型简称
+		jQuery.fn = jQuery.prototype = {
+			constrcutor: jQuery
+		};
+
+		//给jQuery和原型分别添加extend方法
+		jQuery.extend = jQuery.fn.extend = function( obj ){
+			for(var key in obj){
+				this[key] = obj[key];
+			}
+		}
+
+		jQuery.extend({
+			//去空格
+			trim: function( str ){
+
+			// null、undefined、NaN、0、false、''
+			if( !str ){
+				return str;
+			}
+
+			//优先使用原生方法
+			if( str.trim ){
+				return str.trim();
+			}
+
+			//自己实现
+			return str.replace(/^\s+|\s+$/g,'');
+			},
+
+			// 判断是不是html片段
+			isHTML : function ( html ){
+				return !!html && html.charAt(0) === '<' && html.charAt( html.length - 1 ) === '>' && html.length >= 3;
+			},
+
+			// 判断是不是函数
+			isFunction : function ( fn ){
+				return typeof fn === 'function';
+			},
+
+			// 判断是不是window
+			isWindow : function ( w ){
+				return !!w && w.window === w;
+			},
+
+			// 判断是不是Object
+			isObject : function ( obj ){
+				if ( obj === null ) {
+	                return false;
+	            }
+	            if ( typeof obj === 'object' || typeof obj === 'function' ) {
+	                return true;
+	            }
+	            return false;
+			},
+
+			//判断是否为String
+			isString: function( str ) {
+				return typeof str === 'string';
+			},
+
+			//判断是不是真数组或伪数组
+			isArray : function( arr ){
+				// Function、window、!Object
+				if( jQuery.isFunction( arr ) || jQuery.isWindow( arr ) || jQuery.isObject( arr ) ){
+					return false;
+				}
+				// 判断是不是真数组
+	            if ( ({}).toString.call( arr ) === '[object Array]' ) {
+	                return true;
+	            }
+	            // 判断是不是伪数组
+	            if ( 'length' in arr && ( arr.length === 0 || arr.length - 1 in arr ) ) {
+	                return true;
+	            }
+
+	            return false;
+			},
+
+
+			ready : function( fn ){
+				//先统一判断 DOMContentloaded 有没有触发
+				//通过 document.readyState == 'complete' 判断
+				//如果为 true，fn可以直接调用
+				//否则，判断支不支持 addEventListener
+					//支持，绑定 DOMContentloaded 事件
+					//不支持，使用 attachEvent 绑定 onreadystatechange 事件（需要在这里判断 document.readyState == 'complete' 才能执行fn 防止fn多次执行）
+				if( document.readyState === 'complete' ){
+					fn();
+				}else if( document.addEventListener ){
+					document.addEventListener('DOMContentLoaded', fn);
+				}else{
+					document.attachEvent('onreadystatechange', function(){
+						if( document.readyState === 'complete' ){
+							fn();
+						}
+					});
+				}
+			}
+		});
+
+		// 真正的构造函数，同时把构造函数放在了原型中
+		var init = jQuery.fn.init = function( selector ){
+			// null、undefined、NaN、0、false、''
+            if ( !selector ) {
+				return this;
+            }
+
+            //function
+            if( jQuery.isFunction( selector )){
+            	//打包给ready静态方法处理
+            	jQuery.ready( selector );
+            }
+
+            // string ==> ( html || selector )
+            else if(jQuery.isString( selector )){
+            	//去空格
+            	selector = jQuery.trim( selector );
+
+            	// html片段
+            	if( jQuery.isHTML( selector ) ){
+            		// 利用一个临时的div来创建DOM，然后把创建好的DOM依次push给实例
+            		var tempDiv = document.createElement('div');
+            		tempDiv.innerHTML = selector;
+            		[].push.apply( this, tempDiv.childNodes);
+            	}else{
+            		// selector
+            		try{
+            			[].push.apply( this, document.querySelectorAll( selector ));
+            		}catch(e){
+            			// 如果报错了，那么补一个length属性，代表没有获取到任何元素
+            			this.length = 0;
+            		}
+            	}
+            }
+            //不是String   array || likeArray
+            else if( jQuery.isArray( selector )){
+            	[].push.apply( this, [].slice.call( selector ) );
+            }
+            //其他
+            else{
+            	this[0] = selector;
+            	this.length = 1;
+            }
+		};
+
+		// 替换init的原型为工厂的原型，这样外界就可以通过工厂给实例扩展方法
+        init.prototype = jQuery.fn;
+		// 暴露工厂和工厂简称
+		w.jQuery = w.$ = jQuery;
+
+	}(window));
+
+
+	//外接实例可以通过constructor得到工厂，通过init得到构造函数
+	console.log($().constrcutor);
+	console.log($().init);
+
+	//入口测试
+	console.log($([1,3]));
+	console.log($('test'));
+	console.log($('<span>1234</span>'));
+	console.log($({0:document.body,length:1}));
+	console.log('--------------')
+	$(function(){
+		console.log($('span'));
+	});
+	console.log($('span'));
+</script>

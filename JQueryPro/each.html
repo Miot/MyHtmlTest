@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+</body>
+</html>
+<script>
+	//模拟实现each
+	var i,key;
+	function each(obj, fn){
+		//先判断是不是数组或伪数组
+			// 是，通过 i 的方式遍历这个对象
+			// 不是，通过 for in 的方式遍历对象
+		// 在遍历过程中，把每一次便利到的key和val分别传给回调
+		if('length' in obj){
+			for(i = 0; i < obj.length ;i++){
+				// 遍历中断
+					//指定fn执行时，this指向val
+				if(fn.call( obj[ i ], i, obj [ i ] ) === false){
+					break;
+				}
+			}
+		}else{
+			for(key in obj){
+				if(fn.call( obj[ key ], key, obj [ key ] ) === false){
+					break;
+				}
+			}
+		}
+	};
+
+	var obj = {a:111,b:222,c:333};
+	var arr = ['aaa','bbb','ccc'];
+	each(obj,function( key, val ){
+		console.log(key,val);
+		console.log(this); //this指向val
+	});
+	each(arr,function( index, val ){
+		console.log(index,val);
+	});
+
+	each(obj,function( key, val ){
+		if(val===333){
+			return false;
+		}
+		console.log(key,val);
+	});
+</script>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+	<ul>
+		<li>aaa</li>
+		<li>bbb</li>
+		<li>ccc</li>
+		<li>ddd</li>
+	</ul>
+<body>
+</body>
+</html>
+<script src='jquery-2.2.0.js'></script>
+<script>
+   /* jQ原型上的核心方法和属性
+	* jquery 版本号
+	* selector 代表所有实例默认的选择器，也代表实例是一个jQuery类型的对象
+	* length 代表所有实例默认的长度
+	* toArray 把实例转化为数组返回
+	* get 获取指定下标的元素，获取的是原生DOM
+	* eq 获取指定下标的元素，获取的是jQuery类型的实例对象
+	* each 遍历实例，把遍历到的数据分别传给回调
+	* map 遍历实例，把遍历到的数据分别传给回调使用，然后吧回调的返回值收集起来 组成一个 数组
+	* slice 截取实例的部分元素，构成一个新的jQuery实例返回
+	* first 获取实例中的第一个元素，是jQuery类型的实例对象
+	* last 获取实例中的最后一个元素，是jQuery类型的实例对象
+	* push 给实例添加新元素
+	* sort 对实例中的元素进行排序
+	* splice 按照指定的下标指定数量删除元素，也可以替换删除的元素
+	*/
+
+	console.log($().jquery);
+	console.log($().selector);
+	console.log($().length);
+	console.log($('li').toArray());
+	//get什么都不传相当于toArray
+	console.log($('li').get());
+	console.log($('li').get(0));
+	console.log($('li').eq(0));
+	//slice包左不包右
+	console.log($('li').slice(0,2));
+	console.log($('li').first(0,2));
+	console.log($('li').last(0,2));
+
+	//给实例添加一个新元素
+	var $$ = $();
+	$$.push('push');
+	console.log($$);
+	console.log('--------------------');
+
+	//排序实例
+	var $lis = $('li');
+	$lis.sort(function(a,b){
+		return a.innerHTML < b.innerHTML;
+	});
+	console.log($lis);
+	console.log('--------------------');
+
+	//删除或替换
+	var $mylis = $('li');
+	$mylis.splice(1,1,document.body);
+	console.log($mylis);
+	console.log('--------------------');
+
+	//each(可以传对象)
+	var obj = {a:111,b:222,c:333};
+	var arr = ['aaa','bbb','ccc'];
+	$.each(obj,function( key, val ){
+		console.log(key,val);
+		console.log(this); //this指向val
+	});
+	$.each(arr,function( index, val ){
+		console.log(index,val);
+	});
+	arr.forEach(function(val, index){
+		console.log(val,index);
+	});
+	console.log('--------------------');
+
+	//map(可以返回一个数组)
+	console.log($.map(obj,function( val,key ){
+		console.log( val,key );
+		return val;
+	}));
+</script>

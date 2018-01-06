@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+</body>
+</html>
+<script>
+	//模拟实现map
+	function map( obj, fn ){
+		//先判断是不是数组或伪数组
+			// 是，通过 i 的方式遍历这个对象
+			// 不是，通过 for in 的方式遍历对象
+		// 在遍历过程中，把每一次便利到的key和val分别传给回调
+		// 同时再给回调传参的时候，需要收集回调的返回值，最后把所有的返回值构成新数组返回（！each与map的区别！）
+		var i,key,result = [];
+		if('length' in obj){
+			for(i = 0; i < obj.length ;i++){
+				result.push(fn.call( obj[ i ], obj [ i ], i ));
+			}
+		}else{
+			for(key in obj){
+				result.push(fn.call( obj[ key ], obj [ key ], key ));
+			}
+		}
+		return result;
+	}
+
+	var obj = { a: 111, b: 222, c: 333, d: 444 };
+	console.log(map(obj,function(val,key){
+		console.log(val,key,this);
+		return val / 100;
+	}));
+
+</script>
