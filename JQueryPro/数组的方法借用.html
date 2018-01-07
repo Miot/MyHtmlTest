@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+	<div>
+        <span>1111</span>
+        <span>2222</span>
+        <span>3333</span>
+        <span>4444</span>
+        <span>5555</span>
+    </div>
+</body>
+</html>
+<script src='jquery-2.2.0.js'></script>
+<script>
+	// slice为什么单独处理
+	// 可以链式编程，对返回值进行后续处理
+	$('span').slice(0,2).css({
+		backgroundColor : 'green'
+	});
+
+	// push 没有做处理
+	// push的返回值是一个新的长度，沿用了push的返回值
+	console.log($('span').push( document.body ));
+
+	// sort 没有做处理
+	// sort 谁调用返回谁
+	console.log($('span').sort());
+	// 添加属性，sort返回值是一个实例
+	$('span').sort().attr('sort',"ok");
+
+	// splice 没有做处理
+	// 沿用了 splice 的返回值
+	console.log($('span').splice(0,3));
+</script>

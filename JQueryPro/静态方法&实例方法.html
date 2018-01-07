@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+</body>
+</html>
+<script>
+	// 实例成员：提供给实例使用的 方法 和 属性
+	// 实例方法：给实例使用的方法
+	// 静态成员（类成员）：提供给函数使用的 方法 和 属性
+	// 静态方法（类方法）：加给函数的方法
+
+	// ES6之前，通常会把 构造函数 当做是 类
+
+	function Person( name, AGE ){
+		// 这是实例成员 因为是给实例使用的
+		this.name = name;
+		// 这里代表实例的具体AGE
+		this.AGE = AGE;
+
+	}
+	// 全大写代表常量
+	// 静态成员 (这里代表所有Person的AGE)
+	Person.AGE = 20;
+
+	Person.prototype = {
+		constructor : Person,
+
+		// 实例方法 ， 但这里的属性和方法 没有添加到实例自身
+		//  run : function(){}
+		// 当有相同的方法时， 复用 静态方法
+		run : function(){
+			Person.run();
+		}
+	}
+
+	// 把通用性很强的方法加到函数中作为 静态方法 使用
+	Person.run = function(){
+		console.log('run');
+	}
+	Person.say = function(){}
+
+
+	var person = new Person('test',1);
+	//实例对象不能直接使用静态方法，所以要用静态方法实现一个实例方法
+	// 在实例方法的实现中，实际上是利用 复用静态方法 实现的
+	// person.say();
+	person.run();
+
+</script>
