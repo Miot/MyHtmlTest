@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+	<div>
+		<span>1</span>
+		<span>2</span>
+		<span>3</span>
+		<span>4</span>
+	</div>
+<body>
+</body>
+</html>
+<script src='jquery-2.2.0.js'></script>
+<script>
+	//dom操作
+	// empty 清空 所有元素的内容
+	// remove  删除 所有元素
+	// html 设置所有元素的内容 或者 获取第一个元素的内容 返回值为实例
+	// text 设置、获取 所有元素的文本内容 返回值为实例
+	// appendTo 把所有的元素，添加到指定的元素中
+	// append 把所有的元素，添加新内容
+	// prependTo 把所有的元素，添加到指定元素中的最前面
+    // prepend 给所有的元素的最前面，添加新的元素
+
+    // $('span').empty();   // span还在 但内容清空
+    // $('span').remove();	// span不在了
+    console.log($('span').html()); 	//打印第一个元素的内容  1
+    console.log($('span').text());	// 1234
+</script>

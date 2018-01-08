@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+	<div>
+		<span>span1</span>
+		<span>span2</span>
+		<span>span3</span>
+		<span>span4</span>
+		<a>a1</a>
+		<a>a2</a>
+	</div>
+</body>
+</html>
+<script src='myjQ.js'></script>
+<script>
+	//给原型扩充dom方法
+	$.fn.extend({
+		empty : function (){
+			for(var i = 0 ; i<this.length ; i++){
+				this[ i ].innerHTML = '';
+			};
+			// 为了链式编程
+			return this;
+		},
+		// 改进版
+		_empty : function(){
+			this.each(function(){
+				//这里的this指向遍历到的每一个元素
+				this.innerHTML = '';
+			});
+			return this;
+		},
+
+		remove : function(){
+			for(var i = 0 ; i<this.length ; i++){
+				this[ i ].parentNode.removeChild(this[ i ]);
+			};
+			// 为了链式编程
+			return this;
+		},
+		// 改进版
+		_remove : function ( likeArray ){
+			this.each(function(){
+				this.parentNode.removeChild(this);
+			});
+			return this;
+		},
+
+		html : function( html ){
+			if( arguments.length === 0 ){
+				return this[0].innerHTML;
+			}else if( arguments.length >= 1 ){
+				for(var i = 0 ; i<this.length ; i++){
+					this[ i ].innerHTML = html;
+				}
+			};
+			// 为了链式编程
+			return this;
+		},
+		_html : function( html ){
+			if( arguments.length === 0 ){
+				return this.get[0].innerHTML;
+			}else{
+				this.each(function(){
+					this.innerHTML = html;
+				})
+			};
+			return this;
+		},
+
+		text : function ( text ){
+			var result = '';
+			if( this.length === 0 ){
+				for(var i = 0 ; i<this.length ; i++){
+					result += this[ i ].innerText;
+				}
+				return result;
+			}else{
+				for(var i = 0 ; i<this.length ; i++){
+					this[ i ].innerText = text;
+				}
+			}
+			// 为了链式编程
+			return this;
+		},
+		_text : function ( text ){
+			var result = '';
+			if( this.length === 0 ){
+				this.each(function(){
+					result += this.innerText;
+				});
+				return result;
+			}else{
+				this.each(function(){
+					this.innerText = text;
+				});
+			}
+			return this;
+		}
+	})
+</script>
+<script>
+	// 测试
+	console.log($('span').empty());
+	// $('span').remove();
+	// $('span').html('haha');
+	// $('a').text('hehe');
+</script>

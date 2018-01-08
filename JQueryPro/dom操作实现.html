@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+	<div>
+		<span>span1</span>
+		<span>span2</span>
+		<span>span3</span>
+		<span>span4</span>
+		<a>a1</a>
+		<a>a2</a>
+	</div>
+</body>
+</html>
+<script>
+	// 清空所有元素的内容
+	function empty( likeArray ){
+		// 遍历 likeArray
+		// 遍历到的每一个元素清除其内容 （元素.innerHTML = ''）
+		for(var i = 0 ; i<likeArray.length ; i++){
+			likeArray[ i ].innerHTML = '';
+		}
+	}
+	// 改进版
+	function _empty(likeArray){
+		[].forEach.call(likeArray,function( val,inex ){
+			val.innerHTML = '';
+		});
+	}
+
+	function remove( likeArray ){
+		// 遍历 likeArray
+		// 遍历到的每一个元素，获取该元素的父元素(parentNode) 再通过父元素.removeChild 清除其内容
+		for(var i = 0 ; i<likeArray.length ; i++){
+			likeArray[ i ].parentNode.removeChild(likeArray[ i ]);
+		}
+	}
+	// 改进版
+	function _remove( likeArray ){
+		[].forEach.call(likeArray,function( val,inex ){
+			val.parentNode.removeChild(val);
+		});
+	}
+
+	function html( likeArray, html ){
+		// 先通过arguments.length判断有没有传参
+			// 没有，获取第一个元素，然后返回这个元素的innerHTML内容
+			// 有，遍历likeArray ，再设置每一个元素的innerHTML为传入的参数
+		if( arguments.length === 1 ){
+			return likeArray[0].innerHTML;
+		}else if( arguments.length >=2 ){
+			for(var i = 0 ; i<likeArray.length ; i++){
+				likeArray[ i ].innerHTML = html;
+			}
+		}
+	}
+	// 改进版
+	function _html( likeArray, html ){
+		return arguments.length === 1?likeArray[0].innerHTML:[].forEach.call(likeArray,function( val,inex ){
+				val.innerHTML = html;
+		});
+	}
+
+	function text( likeArray,text ){
+		// 先通过arguments.length判断有没有传参
+			// 没有，遍历likeArray ，再设置每一个元素的innerText 加在一起返回
+			// 有，遍历likeArray ，再设置每一个元素的innerText为传入的参数
+		var result = '';
+		if( arguments.length === 1 ){
+			for(var i = 0 ; i<likeArray.length ; i++){
+				result += likeArray[ i ].innerText;
+			}
+		}else if( arguments.length >=2 ){
+			for(var i = 0 ; i<likeArray.length ; i++){
+				likeArray[ i ].innerText = text;
+			}
+		}
+		return result;
+	}
+</script>
+<script>
+	var span = document.querySelectorAll("span");
+	var a = document.querySelectorAll("a");
+
+	// _empty(span);
+	// _remove(span);
+	console.log(_html(span,'haha'));
+	console.log(text(a));
+
+</script>

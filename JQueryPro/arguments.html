@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+</body>
+</html>
+<script src='jquery-2.2.0.js'></script>
+<script>
+	// arguments: 存储的是一个代表实参的对象，该对象以下标的方式存储了所有传进来的实参。length代表所有实参的数量
+	function add(){
+		var result = 0;
+		for(var i = 0;i < arguments.length;i++){
+			result += arguments[i];
+		}
+		console.log( result );  
+	}
+	add(1,1);
+</script>
