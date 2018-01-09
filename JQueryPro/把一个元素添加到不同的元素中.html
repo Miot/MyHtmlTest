@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+	<span>--I am Span</span>
+	<ul>
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+	</ul>
+</body>
+</html>
+<script>
+	var span = document.querySelector("span");
+	var lis = document.querySelectorAll("li");
+
+	// 遍历所有的li，分别进行appendChild()
+	// 但需要进行cloneNode，只有第一次添加的span才是本体(true属性表示包含子节点)
+	for(var i=0,len = lis.length;i<len;i++){
+		if(i===0){
+			lis[i].appendChild( span );
+		}else{
+			lis[i].appendChild( span.cloneNode(true) );
+		}
+	}
+</script>

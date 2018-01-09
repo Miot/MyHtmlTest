@@ -7,7 +7,7 @@
 		};
 		// 替换原型 + 原型简称
 		jQuery.fn = jQuery.prototype = {
-			constrcutor: jQuery,
+			constructor: jQuery,
 			jquery: version,
 			selector:'',
 			length:0,
@@ -19,7 +19,7 @@
 				// 否则
 					// 如果传入的是正数，按照指定的下标获取元素返回
 					// 如果传入的是负数，按照下标倒着获取元素返回(this.length+负数)
-				return i == null ? this.toArray() : i>= 0 ? this[ i ] : this[ this.length + i ];
+				return i == null ? this.toArray() : (i>= 0 ? this[ i ] : this[ this.length + i ]);
 			},
 			eq:function( i ){
 				// 如果传入null或undefined，返回一个新实例
@@ -150,7 +150,7 @@
 			//判断是不是真数组或伪数组
 			isArray : function( arr ){
 				// Function、window、!Object
-				if( jQuery.isFunction( arr ) || jQuery.isWindow( arr ) || jQuery.isObject( arr ) ){
+				if( jQuery.isFunction( arr ) || jQuery.isWindow( arr ) || !jQuery.isObject( arr ) ){
 					return false;
 				}
 				// 判断是不是真数组

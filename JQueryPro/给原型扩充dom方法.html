@@ -6,14 +6,11 @@
 	<style></style>
 </head>
 <body>
-	<div>
 		<span>span1</span>
 		<span>span2</span>
 		<span>span3</span>
 		<span>span4</span>
 		<a>a1</a>
-		<a>a2</a>
-	</div>
 </body>
 </html>
 <script src='myjQ.js'></script>
@@ -101,13 +98,82 @@
 				});
 			}
 			return this;
-		}
+		},
+
+		appendTo : function( selector ){
+			// 定义一个数组，用来存储将来所有被添加的元素
+			// 遍历所有的元素
+			// 使用jQuery包装selector，把不同的参数统一为jQ实例
+			// 在外层遍历所有的元素（this）
+			// 在内层遍历所有的目标（包装后的jQ实例）
+			// 在内层判断
+				// 如果是第一次，则把外面遍历的元素本体添加到内层遍历到的元素
+				// 如果不是,则把外层遍历到的元素clone版本添加到内层遍历到的元素
+			// 返回存储被添加元素的数组用jQ包装后返回
+			var result = [],tempNode = null;
+			var $selector = $(selector);
+			for(var i = 0; i < this.length;i ++){
+				for(var j = 0; j < $selector.length; j++){
+					if( j===0 ){
+						tempNode = this[i];
+						$selector[j].appendChild( tempNode );
+						result.push( tempNode );
+					}else{
+						tempNode = this[i].cloneNode(true)
+						$selector[j].appendChild(tempNode);
+						result.push( tempNode );
+					};
+				};
+			};
+			// 把所有被添加的元素保证成新实例返回，
+            // 这样可以对所有被添加的元素进行链式编程。
+            return jQuery( result );
+		},
+		_appendTo : function( selector ){
+			var result = [],tempNode = null;
+			var $selector = $(selector);
+			this.each(function(){
+				var that = this;
+				$selector.each(function(i){
+					tempNode = i === 0? that : that.cloneNode(true);
+					this.appendChild(tempNode);
+					result.push(tempNode);
+				});
+			});
+			return jQuery( result );
+		},
+
+		prependTo : function( selector ){
+			// 定义一个数组，用来存储将来所有被添加的元素
+			// 遍历所有的元素
+			// 使用jQuery包装selector，把不同的参数统一为jQ实例
+			// 在外层遍历所有的元素（this）
+			// 在内层遍历所有的目标（包装后的jQ实例）
+			// 在内层判断
+				// 如果是第一次，则把外面遍历的元素本体添加到内层遍历到元素的最前面
+				// 如果不是,则把外层遍历到的元素clone版本添加到内层遍历到元素的最前面
+			// 返回存储被添加元素的数组用jQ包装后返回
+			var result = [],tempNode = null;
+			var $selector = $(selector);
+			for(var i = 0; i < this.length;i ++){
+				for(var j = 0; j < $selector.length; j++){
+					tempNode = j === 0? this[i] : this[i].cloneNode(true);
+					$selector[j].insertBefore(tempNode,$selector[j].firstChild);
+					result.push(tempNode);
+				};
+			};
+			// 把所有被添加的元素保证成新实例返回，
+            // 这样可以对所有被添加的元素进行链式编程。
+            return jQuery( result );
+		},
 	})
 </script>
 <script>
 	// 测试
-	console.log($('span').empty());
+	// console.log($('span').empty());
 	// $('span').remove();
 	// $('span').html('haha');
 	// $('a').text('hehe');
+	//console.log($('a').appendTo('span'));
+	console.log($('a').prependTo('span'));
 </script>
