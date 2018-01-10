@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+	<a a='aa' index='1'>我是a</a>
+	<span>span1</span>
+	<span>span2</span>
+	<span>span3</span>
+	
+</body>
+</html>
+<script src='jquery-2.2.0.js'></script>
+<script>
+	// 属性和样式方法
+	// addClass 给 所有元素 添加新的class
+	// removeClass 删除 所有元素 指定的class
+	// hasClass 判断 所有元素 有没有指定的class
+	// toggleClass 有则删除，没有则添加
+	// attr 设置 或者 获取 元素的属性节点值 (获取属性节点值还有getAttribute（）方法)
+	// prop 设置 或者 获取 元素的属性值
+	// val 设置 或者 获取 元素的value属性值
+
+	console.log($('a').attr('index')); // 1
+	console.log($('a').prop('index'));//a index
+</script>

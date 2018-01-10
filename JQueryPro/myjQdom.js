@@ -1,22 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title></title>
-	<style></style>
-</head>
-<body>
-		<span>span1</span>
-		<span>span2</span>
-		<span>span3</span>
-		<span>span4</span>
-		<a>a1</a>
-</body>
-</html>
-<script src='myjQcore.js'></script>
-<script>
-	//给原型扩充dom方法
-	$.fn.extend({
+//给原型扩充dom方法
+$.fn.extend({
 		empty : function (){
 			for(var i = 0 ; i<this.length ; i++){
 				this[ i ].innerHTML = '';
@@ -244,15 +227,3 @@
 			return this;
 		},
 	})
-</script>
-<script>
-	// 测试
-	// console.log($('span').empty());
-	// $('span').remove();
-	// $('span').html('haha');
-	// $('a').text('hehe');
-	// console.log($('a').appendTo('span'));
-	// console.log($('a').prependTo('span'));
-	// console.log($('span').append($('a')));
-	// console.log($('span')._prepend($('a')));
-</script>
