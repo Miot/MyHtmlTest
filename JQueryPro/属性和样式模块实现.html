@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+	<a index='1' class="a">我是a</a>
+	<span>span1</span>
+	<span>span2</span>
+	<span>span3</span>
+	<input type="text" value="默认值">
+</body>
+</html>
+<script src='myjQcore.js'></script>
+<script>
+	// 添加静态方法
+	$.extend({
+		//获取样式，已经处理了兼容性
+		getStyle: function( dom,style ){
+			if( window.getComputedStyle ){
+				window.getComputedStyle( dom )[ style ];
+			}else{
+				return dom.currentStyle[ style ];
+			}
+		}
+	});
+
+
+	$.fn.extend({
+		// 设置或者获取元素的属性节点值
+		attr : function( attr,val ){
+			// 判断attr是不是字符串或者对象
+				// 不是，返回this
+				// 如果是字符串，那么继续判断arguments的length
+					// length == 1，则获取第一个元素指定的属性节点值返回
+					// length >= 2, 则遍历所有元素，分别给他们设置新的属性节点值
+				// 如果不是字符串（是对象），那么遍历这个对象，得到所有的属性节点值，然后遍历所有的元素，把所有的属性节点分别添加到这些元素中
+			// return this
+			if( !jQuery.isString( attr ) && !jQuery.isObject( attr )){
+				return this;
+			}else if (jQuery.isString( attr )){
+				if( arguments.length == 1 ){
+					return this.get( 0 ).getAttribute( attr );
+				}else{
+					for( var i = 0, len = this.length; i< len; i++){
+						this[i].setAttribute( attr ,val );
+					}
+				};
+			}else{
+				for( var key in attr ){
+					for( var i = 0, len = this.length; i< len; i++){
+						this[ i ].setAttribute( key, attr[key] );
+					}
+				}
+			};
+			return this;
+		},
+		// 改进版
+		_attr : function( attr,val ){
+			// 判断arguments的length
+					// length == 1，判断是不是字符串
+						// 是，则获取第一个元素指定的属性节点值返回
+						// 不是，判断是不是对象
+							// 是，那么遍历这个对象，得到所有的属性节点值，然后遍历所有的元素，把所有的属性节点分别添加到这些元素中
+					// length >= 2, 遍历所有元素，分别设置属性节点值
+			// return this
+			var that = this;
+			if( arguments.length == 1 ){
+				if( jQuery.isString( attr ) ){
+					return this[0].getAttribute( attr );
+				}else if( jQuery.isObject( attr ) ){
+					jQuery.each( attr,function( key,val ){
+						// 遍历所有元素
+						that.each(function(){
+							// 给遍历到的每一个元素分别设置外面遍历到的属性节点
+							this.setAttribute( key,val );
+						});
+					});
+				}
+			}else{
+				// 遍历所有元素分别设置对应的属性节点值
+				this.each(function(){
+					this.setAttribute( attr,val )
+				})
+			};
+			return this;
+		},
+
+		// prop 设置 或者 获取 元素的属性值
+		prop : function( attr,val ){
+			// 判断attr是不是字符串或者对象
+				// 不是，返回this
+				// 如果是字符串，那么继续判断arguments的length
+					// length == 1，则获取第一个元素指定的属性值返回
+					// length >= 2, 则遍历所有元素，分别给他们设置新的属性值
+				// 如果不是字符串（是对象），那么遍历这个对象，得到所有的属性值，然后遍历所有的元素，把所有的属性值分别添加到这些元素中
+			// return this
+			if( !jQuery.isString( attr ) && !jQuery.isObject( attr )){
+				return this;
+			}else if (jQuery.isString( attr )){
+				if( arguments.length === 1){
+					return this[ 0 ][ attr ];
+				}else{
+					for( var i=0, len=this.length; i<len; i++){
+						this[ i ][ attr ]  = val;
+					};
+				};
+			}else if (jQuery.isObject( attr )){
+				for( var key in attr ){
+					for( var i=0, len=this.length; i<len; i++){
+						this[ i ][ key ] = attr[ key ];
+					}
+				};
+			};
+			return this;
+		},
+		_prop : function( attr,val ){
+			var that = this;
+			if( arguments.length === 1){
+				if( jQuery.isString( attr ) ){
+					return this[0][ attr ];
+				}else{
+					jQuery.each( attr,function( key,val ){
+						that.each( function(){
+							this[ key ] = val;
+						})
+					})
+				}
+			}else{
+				this.each( function(){
+					this[ attr ] = val;
+				})
+			};
+			return this;
+		},
+
+		//设置 或者 设置样式
+		css : function( styleName,style ){
+			// 如果arguments.length为1
+				// 判断styleName是不是字符串，是则获取第一个元素指定的样式
+				// 判断styleName是不是对象，是则遍历这个对象得到所有的样式分别设置给所有的元素
+			// 如果arguments.length >= 2 遍历所有元素分别设置指定的样式
+			// return this
+			if( arguments.length === 1){
+				if( jQuery.isString( styleName ) ){
+					return jQuery.getStyle( this[ 0 ],styleName );
+				}else{
+					for( var key in styleName ){
+						for( var i=0, len=this.length; i<len; i++ ){
+							this[ i ][ 'style' ][ key ] = styleName[ key ];
+						}
+					}
+				}
+			}else if( arguments.length >= 2 ){
+				for( var i=0, len=this.length; i<len; i++ ){
+					this[ i ][ 'style' ][ styleName ] = style;
+				}
+			}
+			return this;
+		},
+
+
+		//设置 或者 设置元素的value属性值
+		val : function( value ){
+			// 如果 arguments.length === 0，则直接返回第一个元素的value属性值
+			// 否则，遍历所有的元素，分别设置对应的value属性值
+			// retu this
+			if( arguments.length === 0 ){
+				return this[ 0 ].value;
+			}else{
+				for( var i=0, len=this.length; i<len; i++ ){
+					this[ i ].value = value;
+				}
+			};
+			return this;
+		},
+		_val : function( value ){
+			if( arguments.length === 0 ){
+				return this[ 0 ].value;
+			}else{
+				this.each(function(){
+					this.value = value;
+				})
+			}
+		},
+		// 复用prop版
+		__val : function( value ){
+			if( arguments.length === 0 ){
+				return this.prop( 'value' );
+			}else{
+				this.prop( 'value',value );
+			}
+		},
+
+		// 判断元素中是否含有指定的class
+		hasClass : function( className ){
+			// 遍历所有的元素
+			// 依次获取每一个元素的className，首尾加空格
+			// 利用处理过的className字符串的indexOf方法判断有没有指定的class
+			// indexOf ！== -1 证明有，返回true
+			for( var i=0, len=this.length; i<len; i++ ){
+				if( (' '+this[ i ].className+' ').indexOf(' '+className+' ') > -1 ){
+					return true;
+				}
+			};
+			return false;
+		},
+		_hasClass : function( className ){
+			var flag = false;
+			this.each(function(){
+				if( (' '+this.className+' ').indexOf(' '+className+' ') > -1 ){
+					flag = true;
+					// 中断遍历
+					return false;
+				}
+			})
+			return flag;
+		},
+
+		//  给所有的元素添加指定的class
+		addClass : function( className ){
+			// 遍历所有的元素
+			// 依次判断每一个元素有没有要添加的className
+				//有则忽略(防止重复)，没有则添加 （ className += ‘ ’+ className ）;
+			// 最后整体 trim() 去空格
+			// return this 
+
+		},
+
+		// 删除所有的元素指定的class
+		removeClass : function( className ){
+			// 没有参数，遍历所有的元素，设置他们的className为空
+			// 有参数，遍历所有的元素，删除指定的className（元素.className.replace()），把指定的className替换为空格
+			// 最后整体 trim() 去空格
+			// return this 
+		},
+
+		// 有则删除，无则添加
+		toggleClass : function( className ){
+			
+		}
+
+	});
+</script>
+<script>
+	$('a')._attr({
+		bbb:'bbb',
+		ccc:'ccc'
+	});
+	console.log($('a')._attr('index')); // 1
+	console.log($('a')._attr('a','aaa')); //返回 this
+
+	console.log('----------');
+	$('span')._prop({
+		a:'aaa',
+		b:'bbb',
+		c:'ccc'
+	});
+	console.log($('span')._prop('b')); // bbb
+	console.log('----------');
+
+	$('span').css({
+		backgroundColor: '#ccc',
+	});
+	console.log($('a').css('backgroundColor'));
+	console.log('----------');
+
+	console.log($('input').val());
+	console.log($('input')._val());
+	console.log($('input').__val());
+	console.log('----------');
+
+	console.log($('a')._hasClass('a'));
+</script>

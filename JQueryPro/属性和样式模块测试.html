@@ -6,11 +6,11 @@
 	<style></style>
 </head>
 <body>
-	<a a='aa' index='1'>我是a</a>
+	<a index='1' class="a">我是a</a>
 	<span>span1</span>
 	<span>span2</span>
 	<span>span3</span>
-	
+	<input type="text" value="默认值">
 </body>
 </html>
 <script src='jquery-2.2.0.js'></script>
@@ -20,10 +20,35 @@
 	// removeClass 删除 所有元素 指定的class
 	// hasClass 判断 所有元素 有没有指定的class
 	// toggleClass 有则删除，没有则添加
-	// attr 设置 或者 获取 元素的属性节点值 (获取属性节点值还有getAttribute（）方法)
+	// attr 设置 或者 获取 元素的属性节点值 (原生获取默认属性节点值还有getAttribute（）方法)
 	// prop 设置 或者 获取 元素的属性值
 	// val 设置 或者 获取 元素的value属性值
-
+	// css设置 或者 获取元素的样式
+	var a = document.querySelector("a");
+	
 	console.log($('a').attr('index')); // 1
-	console.log($('a').prop('index'));//a index
+	console.log($('a').attr('a','aaa')); //返回 this
+	console.log('--------');
+	$('span').prop({
+		a:'aaa',
+		b:'bbb',
+		c:'ccc'
+	});
+	console.log($('span').prop('b')); // bbb
+	console.log('--------');
+	$('span').css({
+		backgroundColor: '#ccc',
+	});
+	console.log($('span').css('backgroundColor'));
+	console.log(getComputedStyle(a).backgroundColor);
+	console.log('--------');
+	console.log($('input').val());
+	console.log('--------');
+	console.log($('a').hasClass('a')); // true有 class=‘a’
+	console.log('--------');
+	$('span').addClass('span1 span2');
+	console.log('--------');
+	$('span').removeClass('span2');
+	console.log('--------');
+	$('a').toggleClass('a');
 </script>
