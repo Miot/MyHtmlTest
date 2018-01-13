@@ -226,7 +226,34 @@
 				//有则忽略(防止重复)，没有则添加 （ className += ‘ ’+ className ）;
 			// 最后整体 trim() 去空格
 			// return this 
-
+			this.each(function(){
+				if( !jQuery(this).hasClass( className ) ){
+					this.className += ' '+ className;
+				}
+			});
+			return this;
+		},
+		_addClass : function( classNames ){
+			// 先把classNames 首尾空格去掉，然后用split(' ')劈成数组
+			// 外层遍历所有元素
+			// 内层遍历所有要添加的class
+			// 依次判断遍历的每一个元素有没有遍历到的每一个要添加的class
+				// 有，忽略
+				// 没有，添加  className += ‘ ’+ className ）
+			// 最后整体 trim() 去空格
+			// return this 
+			classNames = jQuery.trim( classNames ).split(' ');
+			this.each(function(){
+				// 这里的this是遍历到的每一个原生dom，为了复用，需要包装
+				var $this = jQuery( this );
+				//  这里便是所有要添加的class
+				jQuery.each( classNames, function( i,val ){
+					if( !$this.hasClass( val ) ){
+						$this[ 0 ].className += ' ' + val;
+					}
+				});
+			});
+			return this;
 		},
 
 		// 删除所有的元素指定的class
@@ -234,14 +261,72 @@
 			// 没有参数，遍历所有的元素，设置他们的className为空
 			// 有参数，遍历所有的元素，删除指定的className（元素.className.replace()），把指定的className替换为空格
 			// 最后整体 trim() 去空格
-			// return this 
+			// return this
+			if( arguments.length === 0 ){
+				this.each(function(){
+					this.className = '';
+				});
+			}else{
+				this.each(function(){
+					this.className = (' ' + this.className + ' ').replace( ' ' + className + ' ',' ');
+				});
+			};
+			return this;
+		},
+		_removeClass : function( classNames ){
+			// 没有参数，遍历所有的元素，设置他们的className为空
+			// 有参数,首尾空格去掉，然后用split(' ')劈成数组
+			// 外层遍历所有元素
+			// 内层遍历所有要添加的class
+			// 遍历到的每一个元素删除遍历到的class
+			// return this
+			if( arguments.length === 0 ){
+				this.each(function(){
+					this.className = '';
+				});
+			}else{
+				classNames = jQuery.trim( classNames ).split(' ');
+				this.each(function(){
+					var that = this;
+					jQuery.each( classNames,function( i,val ){
+						that.className = that.className.replace(new RegExp('\\b' + val + '\\b'),' ');
+					})
+				});
+			};
+			return this;
 		},
 
 		// 有则删除，无则添加
 		toggleClass : function( className ){
-			
-		}
-
+			this.each(function(){
+				var $this = jQuery(this);
+				if( $this.hasClass( className )){
+					$this.removeClass( className );
+				}else{
+					$this.addClass( className );
+				}
+			});
+			return this;
+		},
+		_toggleClass : function( classNames ){
+			// 先把classNames 首尾空格去掉，然后用split(' ')劈成数组
+			// 外层遍历所有元素
+			// 内层遍历所有的class
+			// 遍历到的每一个元素判断有没有遍历到的每一个class，有则删除，没有就添加
+			// return this 
+			classNames = jQuery.trim( classNames ).split(' ');
+			this.each(function(){
+				var $this = jQuery(this);
+				jQuery.each( classNames,function( i,val ){
+					if( $this.hasClass( val ) ){
+						$this.removeClass( val );
+					}else{
+						$this.addClass( val );
+					}
+				});
+			});
+			return this;
+		},
 	});
 </script>
 <script>
@@ -272,5 +357,18 @@
 	console.log($('input').__val());
 	console.log('----------');
 
-	console.log($('a')._hasClass('a'));
+	console.log($('a').hasClass('a'));
+	// console.log($('a')._hasClass('a'));
+	console.log('--------');
+
+	$('span').addClass('span1 span2');
+	// $('span')._addClass('span1 span2');
+	console.log('--------');
+
+	$('span').removeClass('span2');
+	// $('span')._removeClass('span2');
+	console.log('--------');
+
+	$('a').toggleClass('a');
+	// $('a')._toggleClass('a');
 </script>

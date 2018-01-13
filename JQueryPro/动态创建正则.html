@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+</body>
+</html>
+<script>
+	var className = ' aa bb cc aabbcc ';
+	var remove = 'bb';
+	// 因为\在字符串中也有特殊含义，传给RegExp构造函数的参数必须全部是字符串，因此转义 \ 用 \\
+	var reg = new RegExp('\\b'+remove+'\\b');
+	console.log(className.replace(reg,''));
+</script>

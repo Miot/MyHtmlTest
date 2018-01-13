@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+</body>
+</html>
+<script src='myjQcore.js'></script>
+<script>
+	$.extend({
+		// 兼容添加事件
+		addEvent : function( ele, type, fn ){
+			// ele必须是 dom，type必须是字符串, fn必须是函数
+			if( !ele.nodeType || !jQuery.isString( type ) || !jQuery.isObject( fn )){
+				return;
+			}
+			if( ele.addEventListener ){
+				ele.addEventListener( type, fn );
+			}else{
+				ele.attachEvent( 'on' + type, fn );
+			}
+		},
+		// 兼容移除事件
+		removeEvent : function( ele, type, fn ){
+			if( !ele.nodeType || !jQuery.isString( type ) || !jQuery.isObject( fn )){
+				return;
+			}
+			if( ele.removeEventListener ){
+				ele.removeEventListener( type, fn );
+			}else{
+				ele.detachEvent( 'on' + type, fn );
+			}
+		}
+	});
+</script>
+<script>
+	// 测试
+</script>

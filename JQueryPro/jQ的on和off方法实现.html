@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+	<span>test</span>
+</body>
+</html>
+<script src='myjQcore.js'></script>
+<script>
+	$.extend({
+		// 兼容添加事件
+		addEvent : function( ele, type, fn ){
+			// ele必须是 dom，type必须是字符串, fn必须是函数
+			if( !ele.nodeType || !jQuery.isString( type ) || !jQuery.isObject( fn )){
+				return;
+			}
+			if( ele.addEventListener ){
+				ele.addEventListener( type, fn );
+			}else{
+				ele.attachEvent( 'on' + type, fn );
+			}
+		},
+		// 兼容移除事件
+		removeEvent : function( ele, type, fn ){
+			if( !ele.nodeType || !jQuery.isString( type ) || !jQuery.isObject( fn )){
+				return;
+			}
+			if( ele.removeEventListener ){
+				ele.removeEventListener( type, fn );
+			}else{
+				ele.detachEvent( 'on' + type, fn );
+			}
+		}
+	});
+
+	$.fn.extend({
+		// 事件绑定
+		on: function( type,fn ){
+			// 遍历所有的元素
+			// 依次绑定事件（调用静态方法绑定）
+			// return this
+			this.each( function(){
+				jQuery.addEvent( this, type, fn );
+			});
+			return this;
+		},
+		// 改进版
+		_on: function( type,fn ){
+			// 遍历所有的元素
+			// 判断每一个元素有没有 $_event（自定义的） 这个属性值
+				// 有，使用
+				// 没有，初始化一个对象
+			// 再判断这个对象有没有对应事件类型的数组
+				// 没有，证明是第一次绑定该事件，那么需要给 $_event 这个对象以type为key添加一个数组，然后把传入的回调push进去，最后还得绑定对应的事件，这个时间回调里面去遍历对应事件的数组，得到每一个事件回调，依次执行（执行时需要改变内部的this，还需要把事件对象传递过去）
+				// 有，直接把传入的回调push到对应事件的数组就可以了
+			// return this
+			this.each(function(){
+				var that = this;
+				// 这里的this代表遍历到的每一个元素
+				this.$_event = this.$_event || {};
+				if( !this.$_event[ type ] ){
+					this.$_event[ type ] = [];
+					this.$_event[ type ].push( fn );
+					jQuery.addEvent( this, type, function( e ){
+						jQuery.each(that.$_event[ type ],function( i,val ){
+							this.call( that, e );
+						});
+					});
+				}else{
+					this.$_event[ type ].push( fn );
+				};
+			});
+			return this;
+		},
+		// 事件移除
+		off: function( type,fn ){
+			// 遍历所有的元素
+			// 依次移除事件（调用静态方法绑定）
+			// return this
+			this.each(function(){
+				jQuery.removeEvent( this, type, fn );
+			});
+			return this;
+		},
+		_off: function( type,fn ){
+			// 遍历所有的元素
+			// 判断遍历到的每一个元素有没有 $_event 
+				// 没有, 不用处理
+				// 有，再判断参数
+					// 如果没有传参，那么遍历所有的元素，每一个元素的 $_event 对象，分别清空这个对象中的每一个数组
+					// 如果只传了一个参，那么把元素 $_event 对象指定类型的数组清空
+					// 如果传了2个以上的参，那么把元素 $_event 对象指定类型的数组中指定的回调删除 
+			// return this
+			var argLen = arguments.length;
+			this.each(function(){
+				if( !this.$_event ){
+					return;
+				}else{
+					if( argLen === 0 ){
+						for( var key in this.$_event ){
+							this.$_event[ key ] = [];
+						}
+					}else if( argLen === 1 ){
+						this.$_event[ type ] = [];
+					}else{
+						for( var i = this.$_event[ type ].length - 1; i >= 0; i-- ) {
+                            if( this.$_event[ type ][ i ] === fn ) {
+                                this.$_event[ type ].splice( i, 1 );
+                            };
+                        };
+					};
+				};
+			});
+			return this;
+		}
+	});
+</script>
+<script>
+	// 测试
+	// function clickSpan(){
+	// 	console.log('clickSpan');
+	// };
+	// function clickSpan2(){
+	// 	console.log('clickSpan2');
+	// };
+	// $('span').on('click',clickSpan);
+	// $('span').on('click',clickSpan2);
+	// $('span').off('click',clickSpan);
+
+	// 改进版测试
+	$('span')._on('mouseenter',function( e ){
+		console.log( '第一次绑定', this, e );
+	})._on('click',function( e ){
+		console.log( '第二次绑定', this, e );
+	})._on('click',function( e ){
+		console.log( '第三次绑定', this, e );
+	});
+	$('span')._off('click');
+</script>
