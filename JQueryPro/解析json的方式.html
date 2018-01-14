@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+</body>
+</html>
+<script>
+	// 解析JSON:
+	// 1、JSON.parse
+	// 2、eval
+	// 3、Function
+	var JSONStr = '{ "name": "test", "age": 0, "alert":"alert(' + 'JSONStr' + ')" }';
+	var JSONStr2 = "{"+'alert:alert("JSONStr2")'+"}";
+	// JSON.parse只会解析JSON，不会执行字符串代码
+	console.log(JSON.parse( JSONStr ));
+	
+	// evel和Function具有安全隐患，会执行字符串代码
+	// console.log(eval('(' + JSONStr2 + ')'));
+	console.log(Function('return ' + JSONStr2)());
+</script>

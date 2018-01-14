@@ -2,7 +2,7 @@ $.extend({
 		//获取样式，已经处理了兼容性
 		getStyle: function( dom,style ){
 			if( window.getComputedStyle ){
-				window.getComputedStyle( dom )[ style ];
+				return window.getComputedStyle( dom )[ style ];
 			}else{
 				return dom.currentStyle[ style ];
 			}
