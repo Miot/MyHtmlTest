@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+</body>
+</html>
+<script src='jquery-2.2.0.js'></script>
+<script>
+	function jQuery(){};
+	jQuery.fn = jQuery.prototype = {};
+	// 添加extend方法
+	// 传入一个参数，谁调用就给谁混入内容
+	// 传入多个参数，把后面的内容混入到第一个对象中
+	jQuery.extend = jQuery.fn.extend = function(){
+		// 被混入的目标
+		var target = arguments[ 0 ];
+		if( arguments.length ===1 ){
+			target = this;
+			for( var key in arguments[ 0 ] ){
+				target[ key ] = arguments[ 0 ][ key ];
+			}
+		}else{
+			// 遍历后面的所有对象
+			for( var i = 1,len = arguments.length; i< len ; i++ ){
+				// 遍历后面每一个对象中的所有属性
+				for( var key in arguments[ i ]){
+					target[ key ] = arguments[ i ][ key ];
+				}
+			}
+		}
+		return target;
+	}
+</script>
+<script>
+	// 测试
+	jQuery.fn.extend({
+		val:111,
+		value:222
+	});
+	console.log(jQuery.fn);
+
+	var obj = {};
+	jQuery.extend( obj, {
+		val1:1
+	},{
+		val2:2
+	},{
+		val3:3
+	});
+	console.log(obj);
+</script>

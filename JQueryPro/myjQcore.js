@@ -55,9 +55,30 @@
 
 		//给jQuery和原型分别添加extend方法
 		jQuery.extend = jQuery.fn.extend = function( obj ){
-			for(var key in obj){
-				this[key] = obj[key];
+			// for(var key in obj){
+			// 	this[key] = obj[key];
+			// }
+
+			// 升级多参数版
+			// 传入一个参数，谁调用就给谁混入内容
+			// 传入多个参数，把后面的内容混入到第一个对象中
+			// 被混入的目标
+			var target = arguments[ 0 ];
+			if( arguments.length ===1 ){
+				target = this;
+				for( var key in arguments[ 0 ] ){
+					target[ key ] = arguments[ 0 ][ key ];
+				}
+			}else{
+				// 遍历后面的所有对象
+				for( var i = 1,len = arguments.length; i< len ; i++ ){
+					// 遍历后面每一个对象中的所有属性
+					for( var key in arguments[ i ]){
+						target[ key ] = arguments[ i ][ key ];
+					}
+				}
 			}
+			return target;
 		}
 		// 给jQuery添加一些静态方法
 		jQuery.extend({

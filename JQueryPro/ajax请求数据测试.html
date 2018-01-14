@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+</body>
+</html>
+<script src="jquery-2.2.0.js"></script>
+<script>
+	var xhr = new XMLHttpRequest();
+	xhr.open('get','test.json');
+	xhr.onreadystatechange = function(){
+		// 等于4代表请求完成
+		if( xhr.readyState === 4 ){
+			// status 200~299 之间都算成功
+			// 304代表走缓存，成功
+			if( (xhr.status >= 200 && xhr.status <300) || xhr.status === 304){
+				// 请求回来的数据都是字符串
+				console.log(xhr.responseText);
+			}else{
+				console.log('请求失败');
+			}
+		}
+	};
+	// xhr.send();
+
+	// jQ版本
+	$.ajax({
+		type:'get',
+		url:'test.json',
+		complete: function(){
+			console.log('请求完成');
+		},
+		success: function( data ){
+			console.log( data );
+		},
+		error: function(){
+			console.log('错误');
+		}
+	});
+	
+</script>
