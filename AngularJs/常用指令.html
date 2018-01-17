@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		li{
+			list-style: none;
+		}
+		.red{
+			color:red;
+		}
+	</style>
+</head>
+<body ng-app='module'>
+	<ul ng-controller='moduleController'>
+		<li ng-bind='num'></li>
+		<li ng-hide='0'>ng-show、ng-hide原来控制元素是否显示</li>
+		<li ng-if='1'>ng-if用来控制元素是否存在，完全消失的</li>
+		<li><img ng-src="{{path}}" width="200" height="200"></li>
+		<li ng-class='{red:true}'>ng-class指令</li>
+	</ul>
+		
+	<div tag></div>
+</body>
+</html>
+<script src='angular.min.js'></script>
+<script>
+	// 模块
+	var module = angular.module('module',[]);
+	// 控制器
+	module.controller('moduleController',['$scope',function($scope){
+		$scope.num = 1234;
+		$scope.path = 'angularJS.png';
+	}]);
+
+	// 自定义指令
+	module.directive('tag',function(){
+		// 返回一个对象，这个对象就是自定义的相关内容
+		return {
+			// E 代表可以通过元素使用 ； A 代表标签； C 代表类名； M 代表注释 
+			restrict: 'EA',
+			// template: '<span>自定义指令</span>',   和下面不能同时用
+			templateUrl: 'templateUrl.html',
+			// 内层替换外层的ng-app
+			// replace: true
+		}
+	});
+</script>
