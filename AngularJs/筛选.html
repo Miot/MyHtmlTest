@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		li{
+			list-style: none;
+		}
+	</style>
+</head>
+<body ng-app="module">
+	<ul ng-controller="moduleCtrl">
+		<li ng-repeat="array in arrays" ng-switch="array">
+			<span ng-switch-when="222">{{array}}</span>
+		</li>
+	</ul>
+</body>
+</html>
+<script src='angular.min.js'></script>
+<script>
+	var module = angular.module('module',[]);
+	module.controller('moduleCtrl', ['$scope', function($scope){
+		$scope.arrays = [
+			'111',
+			'222',
+			'333'
+		]
+	}]);
+</script>

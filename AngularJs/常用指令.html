@@ -15,6 +15,8 @@
 <body ng-app='module'>
 	<ul ng-controller='moduleController'>
 		<li ng-bind='num'></li>
+		<!-- 解决多参数闪烁 (添加了一个样式)-->
+		<li ng-cloak>{{name}}-{{num}}</li>
 		<li ng-hide='0'>ng-show、ng-hide原来控制元素是否显示</li>
 		<li ng-if='1'>ng-if用来控制元素是否存在，完全消失的</li>
 		<li><img ng-src="{{path}}" width="200" height="200"></li>
@@ -30,6 +32,7 @@
 	var module = angular.module('module',[]);
 	// 控制器
 	module.controller('moduleController',['$scope',function($scope){
+		$scope.name = 'Mio';
 		$scope.num = 1234;
 		$scope.path = 'angularJS.png';
 	}]);

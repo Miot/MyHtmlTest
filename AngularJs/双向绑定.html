@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body ng-app='module'>
+	<!-- 要实现数据从视图向模型传递要借助于表单元素 -->
+	<div ng-controller="DemoController">
+		<input type="text" ng-model='msg'>
+		<button ng-click="show()">打印</button>
+	</div>
+</body>
+</html>
+<script src='angular.min.js'></script>
+<script>
+	var module = angular.module('module',[]);
+	module.controller('DemoController', ['$scope', function($scope){
+		$scope.show = function(){
+			console.log($scope.msg);
+		};
+	}])
+</script>
