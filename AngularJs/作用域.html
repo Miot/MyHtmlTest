@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body ng-app="App" ng-init="name='GlobeName'">  <!-- 根作用域 -->
+	<div class="box" ng-controller="ParentCtrl">
+		<nav>
+			<a href="#">首页</a>
+			<a href="#">列表</a>
+		</nav>
+		<div class="main" ng-controller="ChildCtrl">
+			<h4>{{name}}</h4>    <!-- GlobeName -->
+		</div>
+	</div>
+</body>
+</html>
+<script src='angular.min.js'></script>
+<script>
+	var App = angular.module('App',[]);
+	App.controller('ParentCtrl', ['$scope', function($scope){
+		// $scope.name = 'ParentName';
+	}]);
+	App.controller('ChildCtrl', ['$scope', function($scope){
+		// $scope.name = 'ChildName';
+	}]);
+</script>

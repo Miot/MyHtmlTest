@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body ng-app="App">
+	<div ng-controller="DemoCtrl">
+		<h4>{{name|capitalize}}</h4>
+	</div>
+</body>
+</html>
+<script src='angular.min.js'></script>
+<script>
+	var App = angular.module('App',[]);
+	// 自定义指令
+	// App.directive('name',function(){
+	// 	return{
+	// 		// 指令相关内容
+	// 	}
+	// });
+
+	// 自定义控制器
+	App.controller('DemoCtrl',['$scope',function($scope){
+		$scope.name = 'angular';
+	}]);
+
+	// 自定义过滤器
+	// App.filter('demo',function(){
+	// 	return function ( input ){
+	// 		console.log( 'hello-' + input);
+	// 		return 'hello-' + input;
+	// 	}
+	// });
+
+	// 自定义首字大写
+	App.filter('capitalize',function(){
+		return function( input ){
+			return input[0].toUpperCase() + input.slice(1);
+		}
+	});
+</script>

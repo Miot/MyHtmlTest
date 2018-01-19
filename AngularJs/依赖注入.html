@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body ng-app="App">
+	<div ng-controller="DemoCtrl">
+		<h3>{{name}}</h3>
+	</div>
+</body>
+</html>
+<script src='angular.min.js'></script>
+<script>
+	var App = angular.module('App',[]);
+	App.controller('DemoCtrl', ['$scope', '$http', function(abc, bcd){
+		abc.name = '依赖注入';
+	}]);
+	// 推断式依赖注入（一般不用）
+	// App.controller('DemoCtrl', [function($scope){
+	// 	$scope.name = '推断式依赖注入';
+	// }]);
+</script>

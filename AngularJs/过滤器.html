@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		li{
+			list-style: none;
+		}
+	</style>
+</head>
+<body ng-app="App">
+	<ul ng-controller="DemoCtrl">
+		<!-- 过滤器用 | 来调用 , 用 : 改变默认值-->
+		<li>{{price|currency:'￥'}}</li>   <!--￥9.90 -->
+		<li>{{now|date:'yyyy-M-d H:mm'}}</li>
+		<li>{{items|filter:'V'}}</li>
+		<li>{{studnets|filter:{age:11} }}}</li>
+		<li>{{studnets|json }}}</li>
+		<li>{{items|limitTo:'-2'}}</li>
+		<li>{{str|lowercase}}</li>
+		<li>{{num|number:'2'}}</li> <!--包含四舍五入 -->
+		<li>{{items|orderBy:'' :true }}</li>  <!-- 第二参数 true 逆序  -->
+	</ul>
+</body>
+</html>
+<script src='angular.min.js'></script>
+<script>
+	var App = angular.module('App',[]);
+	App.controller('DemoCtrl', ['$scope', function($scope){
+		$scope.price = 9.90;
+		$scope.now = new Date;
+		$scope.items = ['Angular','Vue','React'];
+		$scope.studnets = [
+			{name:'name1',age:13},
+			{name:'name2',age:16},
+			{name:'name3',age:11}
+		];
+		$scope.str = 'Hello Angular';
+		$scope.num = 5.1297;
+	}]);
+</script>
