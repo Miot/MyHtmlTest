@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		li{
+			list-style: none;
+		}
+	</style>
+</head>
+<body ng-app="App">
+	<div ng-controller="locationCtrl">
+		<ul>
+			<li>{{absUrl}}</li>
+			<li>{{protocol}}</li>
+			<li>{{port}}</li>
+			<li>{{path}}</li>
+			<li>{{hash}}</li>
+			<li>{{search}}</li>
+		</ul>
+	</div>
+
+	<div ng-controller="timeCtrl">
+		<li>{{time}}</li>
+		<li>{{time2}}</li>
+	</div>
+
+	<div ng-controller="filterCtrl">
+		<li>{{price}}</li>
+	</div>
+
+	<div ng-controller="logCtrl"></div>
+
+	<div ng-controller="httpCtrl"></div>
+</body>
+</html>
+<script src='angular.min.js'></script>
+<script>
+	var App = angular.module('App',[]);
+	// 服务是一个对象或函数，对外提供特定的功能
+
+	// $location 是对原生Javascript中location对象属性和方法的封装
+	App.controller('locationCtrl', ['$scope','$location', function($scope, $location){
+		console.log($location);
+		// 绝对路径
+		$scope.absUrl = $location.absUrl();
+		// 协议
+		$scope.protocol = $location.protocol();
+		// 端口
+		$scope.port = $location.port();
+		// 当前路径
+		$scope.path = $location.path();
+		// 获得锚点后面的内容
+			// 哈希值(锚点后面找 # 后的内容)
+			// url
+		$scope.hash = $location.hash();
+		$scope.url = $location.url();
+		// 查询字符串（获取传递的参数[ ? 后面的内容 ]）
+		$scope.search = $location.search();
+
+	}]);
+
+	// $timeout、$interval 对原生Javascript中的setTimeout和setInterval进行了封装
+	App.controller('timeCtrl', ['$scope', '$timeout', '$interval',function($scope, $timeout, $interval){
+		$timeout(function(){
+			$scope.time = new Date();
+		},3000);
+		$interval(function(){
+			$scope.time2 = new Date();
+		},1000);
+	}]);
+
+	// $filter 在控制器中格式化数据
+	App.controller('filterCtrl', ['$scope', '$filter',function($scope, $filter){
+		$scope.price = 11.11;
+		$scope.price = $filter('currency')($scope.price,'￥');
+	}]);
+
+	// $log打印调试信息
+	App.controller('logCtrl', ['$log', function( $log ){
+		$log.info('一般信息');
+		$log.warn('警告信息');
+		$log.error('错误信息');
+		$log.log('打印信息');
+		$log.debug('调试信息');
+
+	}]);
+
+	// $http 用于向服务端发起异步请求, 本质是对XMLHttpRequest对象的封装
+	App.controller('httpCtrl', ['$scope', '$http', '$log', function( $scope, $http, $log ){
+		$http({
+			url:'test.php',
+			// method:'get',
+			method:'post',
+			headers:{
+				// 请求头
+				'Content-type':'application/x-wwww-form-urlencoded'
+			},
+			params:{
+				// get传入的参数
+				name: 'test'
+			},
+			data:{
+				// post传入的参数
+				num:0
+			}
+		}).then(function onSuccess( info ){
+			// info 是返回的数据
+			$log.info(info);
+		}).catch(function onError( info ) {
+
+		};
+
+		// 传递的数据可以是 'key=val&key=val' 的形式，这种形式叫formData ，它的Content-type 必须要设成 application/x-wwww-form-urlencoded
+		// 以上诉请求数据的类型，后端php 以 $_POST 接收
+
+
+		// 也可以是 application/json;charset=UTF-8 就是json对象的形式 { 'key':val }
+		// 后端php 以 $_POST 则不能接收
+	}]);
+</script>

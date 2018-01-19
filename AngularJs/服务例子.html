@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body ng-app="App">
+	<div ng-controller="StarCtrl">
+		<button ng-click="getData()">获取数据</button>
+		<table>
+			<tr>
+				<td>姓名</td>
+				<td>年齡</td>
+			</tr>
+			<tr ng-repeat="star in stars">
+				<td>{{star.name}}</td>
+				<td>{{star.age}}</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
+<script src='angular.min.js'></script>
+<script>
+	var App = angular.module('App',[]);
+	App.controller('StarCtrl', ['$scope', '$http', '$log',function( $scope,$http,$log ){
+		$scope.getData = function(){
+			$http({
+				url: 'stars.php',
+				method:'get'
+			}).then(function( info ){
+				$log.info(info);
+				$scope.stars = info.data;
+			})
+		}
+	}]);
+</script>
