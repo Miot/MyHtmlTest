@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body ng-app="App">
+	<div ng-controller="DemoCtrl">
+		<h3>{{str|capitalize}}</h3>
+	</div>
+</body>
+</html>
+<script src='angular.min.js'></script>
+<script>
+	var App = angular.module('App',[]);
+	//修改服务默认配置
+	App.config(['$logProvider',function( $logProvider ) {
+		//关闭debug
+		$logProvider.debugEnabled(false);
+	}]);
+
+	App.config(['$filterProvider',function($filterProvider) {
+		// 默认有9个过滤器，通过配置可以新增过滤器
+		$filterProvider.register('capitalize',function(){
+			return function( input ){
+				return input[ 0 ].toUpperCase() + input.slice(1);
+			}
+		});
+	}]);
+
+	App.controller('DemoCtrl', ['$scope','$log', function( $scope,$log ){
+		$log.log('日志');
+		$log.debug('调试');
+		$scope.str = 'hello';
+	}]);
+</script>

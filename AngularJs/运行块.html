@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body ng-app="App">
+	<div ng-controller="DemoCtrl">
+		{{name}}
+	</div>
+</body>
+</html>
+<script src='angular.min.js'></script>
+<script>
+	var App = angular.module('App',[]);
+	// 运行块
+	App.run(['$http','$rootScope', function( $http,$rootScope ){
+		// 直接调用 $http
+		$http({
+			url:'test.php'
+		});
+		// 直接调用根作用域
+		$rootScope.name = 'rootScope';
+	}]);
+	App.controller('DemoCtrl', ['$scope', function( $scope ){
+		$scope.name = 'scope';
+	}]);
+</script>
