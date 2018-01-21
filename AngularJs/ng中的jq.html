@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body ng-app="App">
+	<div class="box">盒子</div>
+	<button ng-click="change()">变红</button>
+</body>
+</html>
+<script src='angular.min.js'></script>
+<script>
+	
+
+	var App = angular.module('App',[]);
+	//原生dom
+	var box = document.querySelector(".box");
+	var btn = document.querySelector("button");
+	// angular.element() 可以将一个原生dom对象转成jq对象
+	// 但是angularJS 只是实现了jq对象的部分方法 jqLite
+	box = angular.element(box);
+	btn = angular.element(btn);
+	
+	btn.on('click',function(){
+		box.css('color','red');
+	});
+
+</script>
