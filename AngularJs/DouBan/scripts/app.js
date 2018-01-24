@@ -8,7 +8,19 @@ DouBan.config(['$routeProvider',function( $routeProvider ) {
 	}).when('/older',{
 		templateUrl: './views/older.html',
 		controller: 'OlderController'
-	}).otherwise({
+	}).when('/author',{
+        templateUrl: './views/author.html',
+        controller: 'AuthorController'
+    }).when('/category',{
+        templateUrl: './views/category.html',
+        controller: 'CategoryController'
+    }).when('/favourite',{
+        templateUrl: './views/favourite.html',
+        controller: 'FavouriteController'
+    }).when('/settings',{
+        templateUrl: './views/settings.html',
+        controller: 'SettingsController'
+    }).otherwise({
 		redirectTo:'/today'
 	});
 }])
