@@ -11,7 +11,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>豆瓣一刻</title>
 	<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
-	<link rel="stylesheet" href="./public/less/main.css">
+	<link rel="stylesheet/less" href="./public/less/main.less">
+	<script src="./public/libs/less.js"></script>
 </head>
 <body ng-app="DouBan">
 	<div class="viewport" ng-controller="DemoController">
@@ -52,8 +53,10 @@
 		</div>
 	</div>
 	<!-- <script src="./libs/toggle.js"></script> -->
+	<!-- build:js ./angular.min.js -->
 	<script src="./bower_components/angular/angular.js"></script>
 	<script src="./bower_components/angular-route/angular-route.js"></script>
+	<!-- endbuild -->
 	<!-- AngularJS入口 -->
 	<script src="./scripts/app.js"></script>
 	<!-- 控制器模块 -->
