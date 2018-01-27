@@ -1,0 +1,91 @@
+@import './base.less';
+@import './adapter.less';
+@import './fonts.less';
+@import './mixin.less';
+
+.wrapper{
+	// 条目
+	.items{
+		padding:0 24 / 32rem;
+
+		// 标题
+		.title{
+			font-size: 28 / 32rem;
+			margin: 24 / 32rem 0 30 / 32rem;
+			overflow: hidden;
+			h3{
+				float: left;
+			}
+			span{
+				color: #888;
+				float: right;
+			}
+		}
+
+		// 添加券
+		.add{
+			height: 220 / 32rem;
+			border: 3 / 32rem dashed #dedede;
+			background-color: #fff;
+			a{
+				margin-top: 36 /32rem;
+				text-align: center;
+				font-size: 104 /32rem;
+				color: #aeaeae;
+			}
+			span{
+				display: block;
+				font-size: 26 /32rem;
+				margin-top: 14 /32rem;
+			}
+		}
+
+		//公共
+		.item{
+			margin-bottom: 32 /32rem;
+			overflow: hidden;
+			.body{
+				height: 224 /32rem;
+			}
+			.act{
+				height: 80 /32rem;
+				padding: 18 /32rem 0;
+				background-color: #fff;
+				.box-sizing;
+				display: flex;
+				a{
+					flex: 1;
+					text-align: center;
+					line-height: 44 /32rem;
+					color: #a974bc;
+					font-size: 26 /32rem;
+					border-right: 1px solid #e8e2d9;
+					&:last-child {
+						border-right: none;
+					}
+				}
+				span{
+					color: #888;
+					margin-left: 21 /32rem;
+				}
+			}
+			&:not(.add){
+		 		.border-radius(10 /32rem);
+		 	}
+		}
+
+		// 全场优惠
+		.all{
+			.body{
+				background-color: #55bc75;
+			}
+		}
+
+		// 优惠券
+		.coupon{
+			.body{
+				background-color: #a874bc;
+			}
+		}
+	}
+}
