@@ -4,6 +4,10 @@ const http = require('http');
 const server = http.createServer();
 // 监听 request 事件 ( request请求报文   response响应报文 )
 server.on('request',function( request, response ){
+	// console.log(request.headers);
+	console.log(request.httpVersion);
+	console.log(request.method);
+	console.log(request.url);
 	// 写入报文头
 	response.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});
 	// 写入报文体
