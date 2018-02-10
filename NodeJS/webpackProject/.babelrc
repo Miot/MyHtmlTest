@@ -1,0 +1,16 @@
+{
+	// 允许使用 ES6 语法 和 react
+	presets: ['env', "react"],
+	// react-transform-hrm 插件，可以在不对React模块进行额外的配置的前提下让HMR正常工作
+	"env": {
+    	"development": {
+    	"plugins": [["react-transform", {
+        	"transforms": [{
+        		"transform": "react-transform-hmr",
+        		"imports": ["react"],
+         		"locals": ["module"]
+        		}]
+     		}]]
+    	}
+	}
+}
